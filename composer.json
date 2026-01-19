@@ -1,0 +1,22 @@
+{
+    "name": "mathmark825/gooberblox",
+    "description": "The library that composes GooberBlox.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "GooberBlox\\": "src/",
+            "Virtubrick\\Grid\\": "vendor/virtubrick/grid/" 
+        }
+    },
+    "authors": [
+        {
+            "name": "Harley",
+            "email": "mathmark825@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "virtubrick/grid": "^1.0.1",
+        "mikebronner/laravel-model-caching": "dev-master"
+    }
+}
