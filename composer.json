@@ -14,6 +14,7 @@
             "email": "mathmark825@gmail.com"
         }
     ],
+    "license": "MIT",
     "minimum-stability": "dev",
     "require": {
         "virtubrick/grid": "^1.0.1",
