@@ -21,7 +21,7 @@ php artisan migrate
 # Available Commands
 ## Importing FFlags
 ```
-php artisan import:fflags <YourFilePath> <FlagGroup (e.g ClientAppSettings)
+php artisan import:fflags <YourFilePath> <FlagGroup (e.g ClientAppSettings)>
 ```
 
 # Documentation
