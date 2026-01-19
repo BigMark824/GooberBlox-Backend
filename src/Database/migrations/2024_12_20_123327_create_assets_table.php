@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->boolean('is_archived')->nullable();
             $table->timestamps();
+
+            $table->foreign('asset_hash_id')
+                  ->references('id')
+                  ->on('asset_hashes')
+                  ->onDelete('cascade');
         });
     }
 

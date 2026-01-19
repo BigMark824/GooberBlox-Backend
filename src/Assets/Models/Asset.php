@@ -2,6 +2,7 @@
 
 namespace GooberBlox\Assets\Models;
 
+use GooberBlox\Assets\Places\PlaceAttribute;
 use Illuminate\Database\Eloquent\Model;
 use GooberBlox\Universes\Models\Universes;
 use GooberBlox\Assets\Models\AssetHashes;
@@ -80,7 +81,10 @@ class Asset extends Model
             }
         });
     }
-
+    public function placeAttribute()
+    {
+        return $this->belongsTo(PlaceAttribute::class, 'place_id');
+    }
     public function universe()
     {
         return $this->belongsTo(Universes::class, 'universe_id');
