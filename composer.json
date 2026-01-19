@@ -14,6 +14,13 @@
             "email": "mathmark825@gmail.com"
         }
     ],
+    "extra": {
+    "laravel": {
+        "providers": [
+            "GooberBlox\\Providers\\MigrationServiceProvider"
+            ]
+        }
+    },
     "license": "MIT",
     "minimum-stability": "dev",
     "require": {
