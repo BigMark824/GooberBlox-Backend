@@ -11,6 +11,9 @@ class GooberBloxServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../Database/Migrations/' => database_path('migrations'),
         ], 'gooberblox-migrations');
+        $this->publishes([
+            __DIR__ . '/../Database/Seeders/' => database_path('seeders'),
+        ], 'gooberblox-seeders');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         if ($this->app->runningInConsole()) {
@@ -18,5 +21,6 @@ class GooberBloxServiceProvider extends ServiceProvider
                 \GooberBlox\Console\Commands\ImportFeatureFlags::class,
             ]);
         }
+        
     }
 }
