@@ -8,7 +8,7 @@ class GooberBloxServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->publishes([
+        $this->publishesMigrations([
             __DIR__ . '/../Database/Migrations/' => database_path('migrations'),
         ], 'gooberblox-migrations');
         $this->publishes([
