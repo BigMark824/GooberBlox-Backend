@@ -4,7 +4,7 @@ namespace GooberBlox\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class MigrationServiceProvider extends ServiceProvider
+class GooberBloxServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
@@ -13,5 +13,10 @@ class MigrationServiceProvider extends ServiceProvider
         ], 'gooberblox-migrations');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \GooberBlox\Console\Commands\ImportFeatureFlags::class,
+            ]);
+        }
     }
 }
