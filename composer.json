@@ -1,5 +1,5 @@
 {
-    "name": "mathmark825/gooberblox",
+    "name": "mathmark825/gooberblox-backend",
     "description": "The library that composes GooberBlox.",
     "type": "library",
     "autoload": {
