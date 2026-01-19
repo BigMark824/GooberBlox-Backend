@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('place_attributes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('place_id');
-            $table->bigInteger('place_type_id');
-            $table->boolean('use_place_media_for_thumb');
-            $table->boolean('overrides_default_avatar');
-            $table->boolean('use_portrait_mode');
-            $table->bigInteger('universe_id');
-            $table->boolean('is_filtering_enabled');
+            $table->bigInteger('place_type_id')->nullable();
+            $table->boolean('use_place_media_for_thumb')->default(false);
+            $table->boolean('overrides_default_avatar')->default(false);
+            $table->boolean('use_portrait_mode')->default(false);
+            $table->bigInteger('universe_id')->nullable();
+            $table->boolean('is_filtering_enabled')->nullable();
             $table->timestamps();
 
             $table->foreign('place_type_id')
