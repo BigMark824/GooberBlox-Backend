@@ -18,6 +18,12 @@ We already have database migrations set up for you to use, just run
 php artisan migrate
 ```
 
+# Available Commands
+## Importing FFlags
+```
+php artisan import:fflags <YourFilePath> <FlagGroup (e.g ClientAppSettings)
+```
+
 Documentation coming soon.
 
 Made with ❤️ by MathMark825 
