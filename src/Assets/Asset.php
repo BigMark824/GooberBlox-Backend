@@ -3,17 +3,25 @@
 namespace GooberBlox\Assets;
 use Illuminate\Support\Facades\Cache;
 
-use GooberBlox\Assets\Models\Asset as AssetModel;
+use GooberBlox\Assets\Models\Asset as AssetInstance;
 use GooberBlox\Assets\Enums\AssetType;
-use GooberBlox\Assets\Exceptions\UnknownAssetException;
-
-use Illuminate\Support\Facades\{Storage, Log};
+use GooberBlox\Web\SEO\NameConverter;
 class Asset {
 
-    protected $assetId;
-    public function __construct($assetId)
+    public static function getSEOUrl(AssetInstance $asset) : string
     {
-        $this->assetId = $assetId;
-    }
+        if($asset == null)
+        {
+            return "";
+        }
 
+        (string)$name = NameConverter::convertToSEO($asset->name);
+
+        if($asset->asset_type_id == AssetType::Place)
+        {
+            return "/games/{$asset->id}/{$name}";
+        }
+
+        return "/catalog/{$asset->id}/{$name}";
+    }
 }
