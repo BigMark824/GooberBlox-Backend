@@ -8,7 +8,7 @@
             "Virtubrick\\Grid\\": "vendor/virtubrick/grid/" 
         }
     },
-    "authors": [
+    "authors": [        
         {
             "name": "Harley",
             "email": "mathmark825@gmail.com"
