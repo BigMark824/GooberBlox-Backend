@@ -24,7 +24,13 @@ php artisan migrate
 php artisan import:fflags <YourFilePath> <FlagGroup (e.g ClientAppSettings)
 ```
 
-Documentation coming soon.
+# Documentation
+Documentation is being worked on!
+
+In the meantime please don't be afraid to look through the source, it's fairly straight forward.
+
+# If you ❤️ Open Source projects
+Please leave a star and check out some of my other projects :)
 
 Made with ❤️ by MathMark825 
 
