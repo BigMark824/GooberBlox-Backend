@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\User\Models;
+namespace GooberBlox\Membership\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -12,6 +12,7 @@ class User extends Model
     protected $fillable = [
         'account_id',
         'age_bracket',
+        'account_status',
         'age_bracket_is_locked',
         'birth_date',
         'use_super_safe_conversation_mode',

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('account_id')->constrained('accounts')->cascadeOnDelete();
+            $table->smallInteger('account_status')->nullable();
             $table->smallInteger('age_bracket')->default(1);
             $table->boolean('use_super_safe_conversation_mode');
             $table->boolean('use_super_privacy_mode');
