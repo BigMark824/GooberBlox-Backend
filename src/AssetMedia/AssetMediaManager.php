@@ -33,15 +33,15 @@ class AssetMediaManager
     {
         if($assetType === null)
         {
-            return config('settings.Default.MaximumPlaceMediaItemsPerPlace');
+            return config('gooberblox.assetmedia.Default.MaximumPlaceMediaItemsPerPlace');
         }
 
         $value = $assetType->value; 
         if($value == AssetType::Plugin)
         {
-            return config('settings.Default.MaximumPluginAssetMediaCount');
+            return config('gooberblox.assetmedia.Default.MaximumPluginAssetMediaCount');
         }
 
-        return config('settings.Default.MaximumPlaceMediaItemsPerPlace');
+        return config('gooberblox.assetmedia.Default.MaximumPlaceMediaItemsPerPlace');
     }
 }

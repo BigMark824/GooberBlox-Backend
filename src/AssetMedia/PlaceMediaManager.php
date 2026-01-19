@@ -7,7 +7,7 @@ use GooberBlox\Assets\Places\Models\PlaceAttribute;
 use Illuminate\Support\Collection;
 class PlaceMediaManager
 {
-    protected $maximumPlaceMediaItems = config('settings.Default.MaximumPlaceMediaItemsPerPlace');
+    protected $maximumPlaceMediaItems = config('gooberblox.assetmedia.MaximumPlaceMediaItemsPerPlace');
     private static function _setUsePlaceMediaForThumbs(int $placeId, bool $usePlaceMedia): void
     {
         $placeAttribute = PlaceAttribute::getOrCreate([
@@ -51,7 +51,7 @@ class PlaceMediaManager
         if (self::_usesPlaceMediaForThumbs($placeId)) {
             return PlaceMediaItem::where('place_id', $placeId)
                 ->orderBy('sort_order')
-                ->limit(config('settings.Default.MaximumPlaceMediaItemsPerPlace'))
+                ->limit(config('gooberblox.assetmedia.Default.MaximumPlaceMediaItemsPerPlace'))
                 ->get();
         }
 
