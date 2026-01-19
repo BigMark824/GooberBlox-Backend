@@ -13,7 +13,10 @@ Simply run
 ```
 composer require mathmark825/gooberblox-backend
 ```
-
+We already have database migrations set up for you to use, just run
+```
+php artisan migrate
+```
 
 Documentation coming soon.
 
