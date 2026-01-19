@@ -27,3 +27,5 @@ php artisan import:fflags <YourFilePath> <FlagGroup (e.g ClientAppSettings)
 Documentation coming soon.
 
 Made with ❤️ by MathMark825 
+
+If you use the project in a production environment all I ask is for credits, this is not to be used for commercial projects either (e.g making money)
