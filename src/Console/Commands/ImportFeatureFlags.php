@@ -4,7 +4,7 @@ namespace GooberBlox\Console\Commands;
 
 use Illuminate\Console\Command;
 
-use GooberBlox\Features\Models\FeatureFlags;
+use GooberBlox\ClientSettings\Models\FeatureFlags;
 class ImportFeatureFlags extends Command
 {
     /**

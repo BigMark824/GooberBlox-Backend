@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Features\Models;
+namespace GooberBlox\ClientSettings\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
