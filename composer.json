@@ -18,6 +18,6 @@
     "minimum-stability": "dev",
     "require": {
         "virtubrick/grid": "^1.0.1",
-        "mikebronner/laravel-model-caching": "dev-master"
+        "mikebronner/laravel-model-caching": "12.0.2"
     }
 }
