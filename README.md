@@ -1,5 +1,7 @@
 # GooberBlox Backend
 
+A fast laravel library for usage on Roblox Private Servers.
+
 ## Holds core infrastructure pertaining to:
 - Server infrastrucutre
 - Core API backends (Accounts, Game joining, Assets)
@@ -14,3 +16,5 @@ composer require mathmark825/gooberblox-backend
 
 
 Documentation coming soon.
+
+Made with ❤️ by MathMark825 
