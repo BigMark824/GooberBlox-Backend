@@ -13,6 +13,6 @@ class PlaceTypes extends Model
 
     public function placeAttributes()
     {
-        return $this->hasMany(PlaceAttribute::class, 'place_type_id');
+        return $this->belhasManyongsTo(PlaceAttribute::class, 'place_type_id');
     }
 }

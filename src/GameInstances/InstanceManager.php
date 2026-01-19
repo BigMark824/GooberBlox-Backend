@@ -51,14 +51,14 @@ class InstanceManager
         $gamePort = $this->getNextAvailablePort($server);
 
         StartInstance::dispatch(
-            $server->id,
-            $place->id,
-            $place->maxPlayers ?? 24,
-            false,
-            false,
-            $gamePort,
-            $place->universe->id ?? null,
-            $server->ip_address
+            serverId: $server->id,
+            placeId: $place->id,
+            maxPlayers: $place->maxPlayers ?? 24,
+            isBuildServer: $place->placeAttribute->placeType?->place_type === 'Personal Server',
+            isCloudEdit: false, // TODO: add
+            gamePort: $gamePort,
+            universeId: $place->universe->id ?? null,
+            ipAddress: $server->ip_address
         );
 
         Log::channel('instance_manager')->info("Dispatched StartInstance job", [
