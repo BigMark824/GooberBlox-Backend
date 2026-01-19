@@ -32,6 +32,10 @@ In the meantime please don't be afraid to look through the source, it's fairly s
 # If you ❤️ Open Source projects
 Please leave a star and check out some of my other projects :)
 
+# Credits
 Made with ❤️ by MathMark825 
+
+Special thanks to:
+- [Kyle](https://github.com/kylegg): [Virtubrick\Grid](https://github.com/RBXC/virtubrick-grid)
 
 If you use the project in a production environment all I ask is for credits, this is not to be used for commercial projects either (e.g making money)
