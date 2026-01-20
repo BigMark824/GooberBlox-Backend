@@ -4,7 +4,7 @@ namespace GooberBlox\Grid;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Log, Cache};
-use GooberBlox\GameInstances\Models\Server;
+use GooberBlox\Infrastructure\Models\Server;
 class Grid {
     protected $request;
     public function __construct(Request $request)
@@ -16,11 +16,9 @@ class Grid {
     {
         $ipAddress = $this->request->ip();
  
-        return Cache::remember("server:{$ipAddress}", now()->addDays(2), function () use ($ipAddress) {
-            $server = Server::where('ip_address', $ipAddress)->first();
+        $server = Server::where('ip_address', $ipAddress)->first();
 
-            return $server ? $server->toArray() : null;
-        });
+        return $server ? $server->toArray() : null;
     }
 
     public function validateRCC(): bool

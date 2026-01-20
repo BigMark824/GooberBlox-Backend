@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Support\Facades\Cache;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+
 use GooberBlox\Platform\Games\Models\MatchMakingContext;
+use GooberBlox\Infrastructure\Models\Server;
 class GameInstance extends Model
 {
-    use HasUuids;
+    use HasUuids, Cachable;
     protected $fillable = [ 
         'place_id',
         'fps',
@@ -23,10 +26,8 @@ class GameInstance extends Model
     ];
 
     public static function getInstance(string $jobId)
-    {
-        return Cache::remember('game_instance:' . $jobId, 0, function () use ($jobId) {
-            return GameInstance::find($jobId);
-        });
+    { 
+        return GameInstance::find($jobId);
     }
     public function server()
     {

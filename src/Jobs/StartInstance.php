@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Virtubrick\Grid\GridService;
 use Virtubrick\Grid\Rcc\{Job, LuaScript};
-use GooberBlox\GameInstances\Models\Server;
+use GooberBlox\Infrastructure\Models\Server;
 use GooberBlox\GameInstances\InstanceManager;
 
 class StartInstance implements ShouldQueue

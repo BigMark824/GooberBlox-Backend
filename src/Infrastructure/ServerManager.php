@@ -12,11 +12,9 @@ class ServerManager
     // TODO: Implement matchmaking
     public static function getServer()
     {
-        $server = Cache::remember('server', 60, function () {
-            return Server::where('server_type', ServerType::Gameserver)
-                        ->orWhere('server_type', ServerType::MixServer)
+        $server = Server::where('server_type', ServerType::Gameserver)
+                ->orWhere('server_type', ServerType::MixServer)
                 ->first();
-        });
 
         if (!$server) 
             throw new NoAvailableServerException("No available game servers found.");

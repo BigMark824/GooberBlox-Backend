@@ -13,11 +13,8 @@ class MatchmakingContext extends Model
     ];
     public static function getOrCreate(string $value): self
     {
-        return Cache::remember('matchmaking_context:'. $value,Carbon::now()->addDays(7), function () use ($value) {
-            return self::firstOrCreate(
-                ['value' => $value],
-            );
-        });
-
+        return self::firstOrCreate(
+            ['value' => $value],
+        );
     }
 }
