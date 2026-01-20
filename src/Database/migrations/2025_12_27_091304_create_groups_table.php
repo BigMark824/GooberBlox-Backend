@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('agent_id');
+            $table->bigInteger('owner_user_id');
+            $table->bigInteger('previous_owner_id')->nullable();
+            $table->string('name');
+            $table->bigInteger('emblem_id')->nullable();
+            $table->boolean('has_clan')->default(false);
+            $table->text('description')->nullable();
+            $table->boolean('public_entry_allowed')->default(false);
+            $table->boolean('bc_only')->default(false);
             $table->timestamps();
         });
     }
