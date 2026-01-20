@@ -8,10 +8,11 @@ use GooberBlox\Platform\Outfits\KeyGeneratorInput;
 use GooberBlox\Platform\Outfits\KeyGenerator;
 use GooberBlox\Assets\Models\Asset;
 use GooberBlox\Assets\Enums\AssetType;
-class OutfitKeyGenerator
+class OutfitKeyGenerator extends KeyGenerator
 {
     private static function computeKey(array $assetIds, int $bodyColorSetId)
     {
+        $keyGenerator = new KeyGenerator();
         $input = new KeyGeneratorInput();
         sort($assetIds);
 
@@ -26,14 +27,12 @@ class OutfitKeyGenerator
         $input->assetIds = $assetIds;
 
         $bodyColorSetHash = BodyColorSet::find($bodyColorSetId)->body_color_set_hash;
-        if($bodyColorSetHash.isEmptyOrNullString())
-        {   
-            $input->bodyColorSetId = $bodyColorSetId;        
-        }
-        else {
+        if (empty($bodyColorSetHash)) {
+            $input->bodyColorSetId = $bodyColorSetId;
+        } else {
             $input->avatarHash = $bodyColorSetHash;
         }
 
-        return KeyGenerator::GenerateKeyUrl;
+        return $keyGenerator->generateKeyUrl($input);
     }
 }

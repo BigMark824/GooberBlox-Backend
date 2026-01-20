@@ -16,7 +16,7 @@ class KeyGenerator
             if (!empty($generatorInput->avatarHash)) {
                 $url .= 'AvatarHash=' . $generatorInput->avatarHash;
             } else {
-                $url .= 'BodyColorSetID=' . $generatorInput->bodyColorSetID;
+                $url .= 'BodyColorSetID=' . $generatorInput->bodyColorSetId;
             }
 
             $assetIds = $generatorInput->assetIds;
@@ -32,7 +32,7 @@ class KeyGenerator
         }
 
 
-    public function uploadSha1(string $keyUrl): string
+    public function generateAssetHash(string $keyUrl): string
     {
         // Friendly for non S3 users
         $bytes = mb_convert_encoding($keyUrl, 'UTF-8', 'UTF-8');
