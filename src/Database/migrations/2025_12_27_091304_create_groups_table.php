@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->boolean('public_entry_allowed')->default(false);
             $table->boolean('bc_only')->default(false);
+            $table->boolean('is_locked');
             $table->timestamps();
         });
     }
