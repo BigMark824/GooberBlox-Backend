@@ -10,26 +10,26 @@ class KeyGenerator
 {
     // For more information see Roblox.Platform.Outfits.KeyGenerator
     public function generateKeyUrl(KeyGeneratorInput $generatorInput): string
-        {
-            $url = URL::to('/Asset/AvatarAccoutrements.ashx') . '?';
+    {
+        $url = URL::to('/Asset/AvatarAccoutrements.ashx') . '?';
 
-            if (!empty($generatorInput->avatarHash)) {
-                $url .= 'AvatarHash=' . $generatorInput->avatarHash;
-            } else {
-                $url .= 'BodyColorSetID=' . $generatorInput->bodyColorSetId;
-            }
-
-            $assetIds = $generatorInput->assetIds;
-            sort($assetIds, SORT_NUMERIC);
-
-            $url .= '&AssetIDs=' . implode(',', $assetIds);
-
-            if (!empty($generatorInput->equippedGearId) && $generatorInput->equippedGearId !== 0) {
-                $url .= '&EquippedGearID=' . $generatorInput->equippedGearId;
-            }
-
-            return $url;
+        if (!empty($generatorInput->avatarHash)) {
+            $url .= 'AvatarHash=' . $generatorInput->avatarHash;
+        } else {
+            $url .= 'BodyColorSetID=' . $generatorInput->bodyColorSetId;
         }
+
+        $assetIds = $generatorInput->assetIds;
+        sort($assetIds, SORT_NUMERIC);
+
+        $url .= '&AssetIDs=' . implode(',', $assetIds);
+
+        if (!empty($generatorInput->equippedGearId) && $generatorInput->equippedGearId !== 0) {
+            $url .= '&EquippedGearID=' . $generatorInput->equippedGearId;
+        }
+
+        return $url;
+    }
 
 
     public function generateAssetHash(string $keyUrl): string
