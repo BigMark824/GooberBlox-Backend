@@ -131,8 +131,6 @@ class GroupActionType extends Model
         $actionType = new self([
             'permission_type_id' => $permissionTypeId,
             'name' => $name,
-            'created' => now(),
-            'updated' => now()
         ]);
 
         $actionType->insert();
