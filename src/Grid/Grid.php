@@ -3,7 +3,6 @@
 namespace GooberBlox\Grid;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Log, Cache};
 use GooberBlox\Infrastructure\Models\Server;
 class Grid {
     protected $request;

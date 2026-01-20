@@ -4,7 +4,6 @@ namespace GooberBlox\Assets\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 use GooberBlox\Assets\Places\Models\PlaceAttribute;

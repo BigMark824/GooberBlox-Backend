@@ -4,7 +4,6 @@ namespace GooberBlox\GameInstances\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Support\Facades\Cache;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
