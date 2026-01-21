@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 use GooberBlox\Assets\Places\Models\PlaceAttribute;
-use GooberBlox\Universes\Models\Universes;
+use GooberBlox\Platform\Universes\Models\Universes;
 use GooberBlox\Assets\Models\AssetHashes;
 use GooberBlox\Membership\Models\User;
 
@@ -28,18 +28,6 @@ class Asset extends Model
         'is_archived'
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::created(function ($assets) 
-        {
-            $assetHash = AssetHashes::create([
-                'target_id' => $assets->id,
-                'hash' => Str::uuid()
-            ]);
-        });
-    }
     public function getAssetHash(int $assetId)
     {
         $asset = $this->getAsset($assetId);

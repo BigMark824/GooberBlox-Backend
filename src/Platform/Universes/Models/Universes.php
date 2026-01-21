@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Universes\Models;
+namespace GooberBlox\Platform\Universes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use GooberBlox\Assets\Models\Asset;
