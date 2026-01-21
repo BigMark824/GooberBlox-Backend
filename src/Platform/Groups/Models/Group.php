@@ -34,7 +34,7 @@ class Group extends Model
             $group->save();
             
             GroupManagement::logGroupAction($this->_robloxUserId, $group->id, GroupActionType::$Unlock->id, 
-            new InitiatorUserJson($user->id)
+                new InitiatorUserJson($user->id)
             );
         }
 
@@ -48,7 +48,7 @@ class Group extends Model
             $group->save();
             
             GroupManagement::logGroupAction($this->_robloxUserId, $group->id, GroupActionType::$Lock->id, 
-            new InitiatorUserJson($user->id)
+                new InitiatorUserJson($user->id)
             );
         }
 
