@@ -4,8 +4,11 @@ namespace GooberBlox\Platform\Universes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use GooberBlox\Assets\Models\Asset;
+
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class Universes extends Model
 {
+    use Cachable;
     protected $fillable = [
         'name',
         'description',
