@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asset_hashes', function (Blueprint $table) {
+        Schema::create('user_assets', function (Blueprint $table) {
             $table->id();
-            $table->integer('asset_type_id');
-            $table->string('hash', 36);
-            $table->boolean('is_approved');
-            $table->boolean('is_reviewed');
-            $table->bigInteger('creator_id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('new_avatar_asset_hash_id');
+            $table->bigInteger('body_color_set_id')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asset_hashes');
+        Schema::dropIfExists('user_assets');
     }
 };
