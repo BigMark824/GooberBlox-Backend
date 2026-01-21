@@ -30,13 +30,13 @@ class AvatarKeyGenerator
             }
         }
 
-        $bodyColorSet = BodyColorSet::where('user_id', $avatar->user_id)->first();
+        $bodyColorSetId = BodyColorSet::where('user_id', $avatar->user_id)->first()?->id;
 
-        if ($bodyColorSet && $bodyColorSet->exists) {
-            $bodyColorsHash = $bodyColorSet->body_color_set_hash;
+        if ($bodyColorSetId) {
+            $bodyColorsHash = $bodyColorSetId;
 
-            if ($bodyColorsHash !== null) {
-                $input->bodyColorSetId = $bodyColorSet->id;
+            if ($bodyColorsHash === null || $bodyColorsHash === '') {
+                $input->bodyColorSetId = $bodyColorSetId;
             } else {
                 $input->avatarHash = $bodyColorsHash;
             }
@@ -44,14 +44,12 @@ class AvatarKeyGenerator
             return $keyGenerator->generateKeyUrl($input);
         }
 
-        throw new PlatformDataIntegrityException(
-            "UserAvatar for User ID {$avatar->user_id} has a null BodyColorSetID and empty AvatarHash even after getting body colors."
-        );
+        throw new PlatformDataIntegrityException("UserAvatar for User ID {$avatar->user_id} has a null BodyColorSetID and empty AvatarHash even after getting body colors.");
     }
 
-    public function generateAssetHash(UserAvatar $avatar, bool $checkIfDefaultClothingNeeded = true): AssetHash
+    public function generateAssetHash(UserAvatar $avatar, bool $checkIfDefaultClothing = true): AssetHash
     {
-        $key = self::computeKey($avatar, $checkIfDefaultClothingNeeded);
+        (string)$key = self::computeKey($avatar, $checkIfDefaultClothing);
         return KeyGenerator::generateAssetHash($key, $avatar->user_id);
     }
 }
