@@ -8,6 +8,7 @@ class BodyColorSet extends Model
 {
     use Cachable;
     protected $fillable = [
+        'user_id',
         'head_color_id',
         'left_arm_color_id',
         'left_leg_color_id',

@@ -18,5 +18,4 @@ class AssetHash extends Model
         'creator_type'
     ];
 
-
 }

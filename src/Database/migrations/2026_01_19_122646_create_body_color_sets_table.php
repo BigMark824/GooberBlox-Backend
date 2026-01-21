@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('body_color_sets', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->integer('head_color_id');
             $table->integer('left_arm_color_id');
             $table->integer('left_leg_color_id');

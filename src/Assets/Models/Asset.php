@@ -79,7 +79,7 @@ class Asset extends Model
     }
     public function assetHash()
     {
-        return $this->belongsTo(AssetHashes::class, 'asset_hash_id');
+        return $this->belongsTo(AssetHash::class, 'asset_hash_id');
     }
 
     public function creator()
