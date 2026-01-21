@@ -10,10 +10,10 @@ class GooberBloxServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishesMigrations([
-            __DIR__ . '/../Database/Migrations/' => database_path('migrations'),
+            __DIR__ . '/../DataAccess/Migrations/' => database_path('migrations'),
         ], 'gooberblox-migrations');
         $this->publishes([
-            __DIR__ . '/../Database/Seeders/' => database_path('seeders'),
+            __DIR__ . '/../DataAccess/Seeders/' => database_path('seeders'),
         ], 'gooberblox-seeders');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
