@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asset_hashes', function (Blueprint $table) {
+        Schema::create('user_assets', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('asset_id');
             $table->integer('asset_type_id');
-            $table->integer('creator_type');
-            $table->string('hash', 36);
-            $table->boolean('is_approved')->default(false);
-            $table->boolean('is_reviewed')->default(false);
-            $table->bigInteger('creator_id');
+            $table->bigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('asset_id')->references('id')->on('assets');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asset_hashes');
+        Schema::dropIfExists('user_assets');
     }
 };

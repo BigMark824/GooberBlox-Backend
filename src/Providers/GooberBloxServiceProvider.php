@@ -2,6 +2,7 @@
 
 namespace GooberBlox\Providers;
 
+use GooberBlox\Services\FilesManager;
 use Illuminate\Support\ServiceProvider;
 
 class GooberBloxServiceProvider extends ServiceProvider
@@ -22,5 +23,8 @@ class GooberBloxServiceProvider extends ServiceProvider
             ]);
         }
         
+        $this->app->singleton(FilesManager::class, function ($app) {
+            return FilesManager::singleton();
+        });
     }
 }

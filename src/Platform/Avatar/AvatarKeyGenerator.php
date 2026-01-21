@@ -1,0 +1,57 @@
+<?php
+
+namespace GooberBlox\Platform\Avatar;
+
+use GooberBlox\Assets\Models\AssetHash;
+use GooberBlox\Assets\Models\AssetHashes;
+use GooberBlox\Outfits\Models\BodyColorSet;
+use GooberBlox\Outfits\Models\Outfit;
+
+use GooberBlox\Platform\Core\Exceptions\PlatformDataIntegrityException;
+use GooberBlox\Platform\Outfits\KeyGeneratorInput;
+use GooberBlox\Platform\Outfits\KeyGenerator;
+use GooberBlox\Assets\Models\Asset;
+use GooberBlox\Assets\Enums\AssetType;
+
+class AvatarKeyGenerator
+{
+    private static function computeKey(UserAvatar $avatar, bool $checkIfDefaultClothingNeeded = true): string
+    {
+        $keyGenerator = new KeyGenerator();
+        $input = new KeyGeneratorInput();
+        
+        $wornAssets = $avatar->getWornAssets($avatar->user_id, $checkIfDefaultClothingNeeded);
+
+        $input->assetIds = array_map(fn($wa) => $wa->assetId, $wornAssets);
+
+        foreach ($wornAssets as $wornAsset) {
+            if ($wornAsset->isEquippedGear) {
+                $input->equippedGearId = $wornAsset->assetId;
+            }
+        }
+
+        $bodyColorSet = BodyColorSet::where('user_id', $avatar->user_id)->first();
+
+        if ($bodyColorSet && $bodyColorSet->exists) {
+            $bodyColorsHash = $bodyColorSet->body_color_set_hash;
+
+            if ($bodyColorsHash !== null) {
+                $input->bodyColorSetId = $bodyColorSet->id;
+            } else {
+                $input->avatarHash = $bodyColorsHash;
+            }
+
+            return $keyGenerator->generateKeyUrl($input);
+        }
+
+        throw new PlatformDataIntegrityException(
+            "UserAvatar for User ID {$avatar->user_id} has a null BodyColorSetID and empty AvatarHash even after getting body colors."
+        );
+    }
+
+    public function generateAssetHash(UserAvatar $avatar, bool $checkIfDefaultClothingNeeded = true): AssetHash
+    {
+        $key = self::computeKey($avatar, $checkIfDefaultClothingNeeded);
+        return KeyGenerator::generateAssetHash($key, $avatar->user_id);
+    }
+}

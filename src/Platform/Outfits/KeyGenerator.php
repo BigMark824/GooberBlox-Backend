@@ -2,10 +2,13 @@
 
 namespace GooberBlox\Platform\Outfits;
 
+use GooberBlox\Assets\Enums\AssetType;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 
 use GooberBlox\Platform\Outfits\KeyGeneratorInput;
+use GooberBlox\Assets\Models\AssetHash;
+use GooberBlox\Services\FilesManager;
 class KeyGenerator
 {
     // For more information see Roblox.Platform.Outfits.KeyGenerator
@@ -32,31 +35,17 @@ class KeyGenerator
     }
 
 
-    public function generateAssetHash(string $keyUrl): string
+    public static function generateAssetHash(string $keyUrl, int $userId): AssetHash
     {
-        // Friendly for non S3 users
-        $bytes = mb_convert_encoding($keyUrl, 'UTF-8', 'UTF-8');
-        $sha1 = sha1($bytes);
+        (string)$hash = FilesManager::singleton()->addFile($keyUrl);
 
-        $path = "avatar-hashes/{$sha1}";
-
-        if (config('filesystems.disks.s3')) {
-            $s3 = Storage::disk('s3');
-
-            if (!$s3->exists($path)) {
-                $s3->put($path, $sha1);
-            }
-
-            return $sha1;
-        }
-
-        $local = Storage::disk('local');
-
-        if (!$local->exists($path)) {
-            $local->put($path, $sha1);
-        }
-
-        return $sha1;
+        return $assetHash = AssetHash::create([
+            'asset_type_id' => AssetType::Avatar,
+            'hash' => $hash,
+            'creator_id' => $userId,
+            'creator_type' => \GooberBlox\Assets\Enums\CreatorType::User
+        ]);
+        
     }
 
 }
