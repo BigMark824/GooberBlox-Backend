@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Jobs;
+namespace GooberBlox\GameInstances\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

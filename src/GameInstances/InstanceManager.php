@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-use GooberBlox\Jobs\StartInstance;
+use GooberBlox\GameInstances\Jobs\StartInstance;
 use GooberBlox\GameInstances\Models\GameInstance;
 use GooberBlox\GameInstances\Exceptions\NoAvailablePortException;
 use GooberBlox\Infrastructure\Models\Server;
