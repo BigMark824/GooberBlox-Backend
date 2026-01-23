@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('user_assets', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('asset_id');
+            $table->integer('asset_type_id');
             $table->bigInteger('user_id');
-            $table->bigInteger('new_avatar_asset_hash_id');
-            $table->bigInteger('body_color_set_id')->nullable();
             $table->timestamps();
         });
     }
