@@ -14,6 +14,7 @@ final class BrickColor
     private static array $avatarPageBasicColorPalette = [];
     private static array $avatarValidColors = [];
     private static array $lookupById = [];
+    private static array $lookupByName = [];
     private static bool $initialized = false;
 
     public function __construct(int $id, string $name, int $r, int $g, int $b)
@@ -165,6 +166,10 @@ final class BrickColor
             self::$lookupById[$color->id] = $color;
         }
 
+        foreach (self::$colors as $color) {
+            self::$lookupByName[$color->name] = $color;
+        }
+
         self::$primaryColors = [
             self::get(1),
             self::get(208),
@@ -266,10 +271,23 @@ final class BrickColor
         self::$initialized = true;
     }
 
+    public static function getAll(): array
+    {
+        self::init();
+        return self::$colors;
+    }
+
     public static function get(int $id): ?BrickColor
     {
         self::init();
         return self::$lookupById[$id] ?? null;
+    }
+    
+    // This is not an official method but it is useful for our Controllers
+    public static function getByString(string $name): ?BrickColor
+    {
+        self::init();
+        return self::$lookupByName[$name] ?? null;
     }
 
     public static function getRandom(): BrickColor
@@ -282,7 +300,7 @@ final class BrickColor
     public static function getAllValidColors(): BrickColor
     {
         self::init();
-        return self::$colors[array_rand(self::$primaryColors)];
+        return self::$colors[array_rand(self::$avatarValidColors)];
     }
 
     public static function default(): BrickColor
