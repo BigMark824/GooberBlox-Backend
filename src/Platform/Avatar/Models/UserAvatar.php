@@ -1,8 +1,9 @@
 <?php
 
-namespace GooberBlox\Platform\Avatar;
+namespace GooberBlox\Platform\Avatar\Models;
 
 use GooberBlox\Platform\Avatar\Models\Accoutrement;
+use GooberBlox\Platform\Avatar\WornAsset;
 use Illuminate\Database\Eloquent\Model;
 
 class UserAvatar extends Model
