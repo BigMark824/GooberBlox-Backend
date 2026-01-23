@@ -7,9 +7,11 @@ use Illuminate\Notifications\Notifiable;
 
 use GooberBlox\Account\Enums\AccountStatusEnum;
 use GooberBlox\Account\Models\AccountStatus;
+
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class Account extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Cachable;
 
     protected $table = 'accounts';
     protected $fillable = [

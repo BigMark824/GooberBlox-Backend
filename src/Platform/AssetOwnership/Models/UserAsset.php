@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use GooberBlox\Assets\Models\Asset;
 use GooberBlox\Assets\Enums\AssetType;
+
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class UserAsset extends Model
 {
+    use Cachable;
     protected $fillable = [
         'asset_id', 
         'asset_type_id',

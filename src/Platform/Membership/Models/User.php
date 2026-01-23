@@ -1,14 +1,17 @@
 <?php
 
-namespace GooberBlox\Membership\Models;
+namespace GooberBlox\Platform\Membership\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use GooberBlox\Account\Models\Account;
 use GooberBlox\Agent\Models\Agent;
+
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class User extends Model
 {
+    use Cachable;
     protected $fillable = [
         'account_id',
         'age_bracket',
