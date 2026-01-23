@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox;
+namespace GooberBlox\Library;
 
 final class BrickColor
 {
