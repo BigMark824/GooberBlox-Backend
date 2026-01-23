@@ -23,24 +23,9 @@ class Account extends Authenticatable
         'remember_token',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($account) {
-            if (empty($account->account_status_id)) {
-
-                $accountStatus = AccountStatus::firstOrCreate(
-                    ['value' => AccountStatusEnum::OK]
-                );
-
-                $account->account_status_id = $accountStatus->id;
-            }
-        });
-    }
-
     public function user()
     {
-        return $this->hasOne(\GooberBlox\User\Models\User::class,'account_id');
+        return $this->hasOne(\GooberBlox\Membership\Models\User::class,'account_id');
     }
     public function accountStatus()
     {
