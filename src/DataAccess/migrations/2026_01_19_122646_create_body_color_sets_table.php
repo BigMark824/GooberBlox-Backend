@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('right_arm_color_id');
             $table->integer('right_leg_color_id');
             $table->integer('torso_color_id');
-            $table->string('body_color_set_hash');
+            $table->string('body_color_set_hash')->nullable()->comment('obsolete');
             $table->timestamps();
         });
     }
