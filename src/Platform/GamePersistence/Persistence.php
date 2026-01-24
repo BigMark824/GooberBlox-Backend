@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Persistence;
+namespace GooberBlox\Platform\GamePersistence;
 
 use GooberBlox\Assets\Exceptions\UnknownAssetException;
 use GooberBlox\Universes\Exceptions\UnknownUniverseException;
