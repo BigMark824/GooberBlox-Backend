@@ -9,12 +9,14 @@ final class BrickColor
     public array $color; 
 
     private static array $colors = [];
-    private static array $primaryColors = [];
+    private static array $lookupById = [];
+    private static array $lookupByName = [];
     private static array $avatarPageAdvancedColorPalette = [];
     private static array $avatarPageBasicColorPalette = [];
     private static array $avatarValidColors = [];
-    private static array $lookupById = [];
-    private static array $lookupByName = [];
+    private static array $headColors = [];
+    private static array $primaryColors = [];
+
     private static bool $initialized = false;
 
     public function __construct(int $id, string $name, int $r, int $g, int $b)
@@ -181,6 +183,47 @@ final class BrickColor
             self::$lookupById[141],
             self::$lookupById[37],
             self::$lookupById[29],
+        ];
+
+        self::$headColors = [
+            self::$lookupById[1],
+            self::$lookupById[208],
+            self::$lookupById[199],
+            self::$lookupById[194],
+            self::$lookupById[226],
+        ];
+        
+        self::$avatarPageBasicColorPalette = [
+			self::$lookupById[364],
+			self::$lookupById[217],
+			self::$lookupById[359],
+			self::$lookupById[18],
+			self::$lookupById[125],
+			self::$lookupById[361],
+			self::$lookupById[192],
+			self::$lookupById[351],
+			self::$lookupById[352],
+			self::$lookupById[5],
+			self::$lookupById[153],
+			self::$lookupById[1007],
+			self::$lookupById[101],
+			self::$lookupById[1025],
+			self::$lookupById[330],
+			self::$lookupById[135],
+			self::$lookupById[305],
+			self::$lookupById[11],
+			self::$lookupById[1026],
+			self::$lookupById[321],
+			self::$lookupById[107],
+			self::$lookupById[310],
+			self::$lookupById[317],
+			self::$lookupById[29],
+			self::$lookupById[105],
+			self::$lookupById[24],
+			self::$lookupById[334],
+			self::$lookupById[199],
+			self::$lookupById[1002],
+			self::$lookupById[1001]
         ];
 
         self::$avatarPageAdvancedColorPalette = [
