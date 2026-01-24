@@ -13,10 +13,11 @@ class Accoutrement extends Model
     protected $fillable = [
         'user_id',
         'user_asset_id'
-    ];
+    ];  
     
     public function userAsset()
     {
         return $this->belongsTo(UserAsset::class);
     }
+
 }

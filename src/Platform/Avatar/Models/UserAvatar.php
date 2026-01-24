@@ -23,22 +23,24 @@ class UserAvatar extends Model
         $accoutrements = Accoutrement::where('user_id', $userId)->get();
         $wornAssets = [];
 
-        foreach ($accoutrements as $acc) {
+        foreach ($accoutrements as $acc) 
+        {
             $userAsset = $acc->userAsset;
 
-            $isGear = $userAsset->$isGear();
-            $isAnimation = $userAsset->$isAnimation();
-            $assetId = $userAsset->$assetId;
-            
-            $wornAssets[] = new WornAsset(
-                $userAsset->user_asset_id,
-                $assetId,
-                $isGear,
-                $isGear,
-                $isAnimation,
-                $userAsset->asset_type_id  
-            );
-
+            if($userAsset != null)
+            {
+                $isGear = $userAsset->isGear();
+                $isAnimation = $userAsset->isAnimation();
+                $assetId = $userAsset->asset_id;
+                
+                $wornAssets[] = new WornAsset(
+                    assetTypeId: $userAsset->asset_type_id,
+                    assetId: $assetId,
+                    isEquippedGear: $isGear,
+                    isGear: $isGear,
+                    isAnimation: $isAnimation,
+                );
+            }
         }
 
         if($checkIfDefaultClothingNeeded)
