@@ -20,12 +20,17 @@ class GooberBloxSettingsServiceProvider extends ServiceProvider
             __DIR__ . '/../Users/Properties/settings.php',
             'gooberblox.users'
         );
+        $this->mergeConfigFrom(
+            __DIR__ . '/../Common/Properties/settings.php',
+            'gooberblox.common'
+        );
     }
     public function boot(): void
     {
         $this->publishes([
             __DIR__ . '/../AssetMedia/Properties/settings.php' => config_path('gooberblox/assetmedia.php'),
             __DIR__ . '/../Users/Properties/settings.php' => config_path('gooberblox/users.php'),
+            __DIR__ . '/../Common/Properties/settings.php' => config_path('gooberblox/common.php'),
         ], 'gooberblox-config');
         
     }
