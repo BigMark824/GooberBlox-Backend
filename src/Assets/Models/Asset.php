@@ -63,7 +63,7 @@ class Asset extends Model
     }
     public function universe()
     {
-        return $this->belongsTo(Universes::class, 'universe_id');
+        return $this->belongsTo(Universe::class, 'universe_id');
     }
     public function assetHash()
     {
