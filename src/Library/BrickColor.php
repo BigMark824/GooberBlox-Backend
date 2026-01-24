@@ -11,6 +11,8 @@ final class BrickColor
     private static array $colors = [];
     private static array $lookupById = [];
     private static array $lookupByName = [];
+    private static array $lookupByRGB = [];
+
     private static array $avatarPageAdvancedColorPalette = [];
     private static array $avatarPageBasicColorPalette = [];
     private static array $avatarValidColors = [];
@@ -192,7 +194,7 @@ final class BrickColor
             self::$lookupById[194],
             self::$lookupById[226],
         ];
-        
+
         self::$avatarPageBasicColorPalette = [
 			self::$lookupById[364],
 			self::$lookupById[217],
@@ -336,15 +338,32 @@ final class BrickColor
         return self::$colors[array_rand(self::$colors)];
     }
 
+    public static function getRandomHeadColor(): BrickColor
+    {
+        self::init();
+        return self::$headColors[array_rand(self::$colors)];
+    }
+
     public static function getAllValidColors(): BrickColor
     {
         self::init();
         return self::$avatarValidColors[array_rand(self::$avatarValidColors)];
     }
 
-    public static function default(): BrickColor
+    public static function getAdvancedColorPalette(): array
     {
         self::init();
+        return self::$avatarPageAdvancedColorPalette;
+    }
+    public static function getAvatarPageV2ColorPalette(): array
+    {
+        self::init();
+        return self::$avatarPageBasicColorPalette;
+    }
+
+    public static function default(): BrickColor
+    {
+        self::init();   
         return self::$lookupById[194];
     }
 }
