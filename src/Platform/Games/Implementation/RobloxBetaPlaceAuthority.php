@@ -1,6 +1,8 @@
 <?php
 
 namespace GooberBlox\Platform\Games\Implementation;
+
+use Illuminate\Support\Facades\Log;
 class RobloxBetaPlaceAuthority
 {    
     private array $betaFeaturePlaceIds = [];
@@ -19,7 +21,7 @@ class RobloxBetaPlaceAuthority
                 $this->betaFeaturePlaceIds = array_fill_keys($ids, true);
             }
         } catch (\Throwable $e) {
-            error_log($e);
+            Log::error($e->getMessage());
             $this->betaFeaturePlaceIds = [];
         }
     }
