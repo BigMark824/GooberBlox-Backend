@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Persistence\Models;
+namespace GooberBlox\Platform\GamePersistence\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

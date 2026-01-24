@@ -4,7 +4,7 @@ namespace GooberBlox\Platform\GamePersistence;
 
 use GooberBlox\Assets\Exceptions\UnknownAssetException;
 use GooberBlox\Universes\Exceptions\UnknownUniverseException;
-use GooberBlox\Persistence\Models\DataPersistence;
+use GooberBlox\Platform\GamePersistence\Models\DataPersistence;
 use GooberBlox\Assets\Models\Asset;
 
 class Persistence {

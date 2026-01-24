@@ -46,13 +46,13 @@ class Asset extends Model
         return $asset;
     }
 
-    public static function getPlace(?int $placeId = null): Asset
+    public static function getPlace(?int $placeId = null): ?Asset
     {
             try {
                 return Asset::where('id', $placeId)
                     ->where('asset_type_id', AssetType::Place)
                     ->with('universe')
-                    ->firstOrFail();
+                    ->first();
             } catch (UnknownAssetException $e) {
                 throw $e;
             }
