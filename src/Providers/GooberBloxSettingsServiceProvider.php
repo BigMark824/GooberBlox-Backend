@@ -24,6 +24,10 @@ class GooberBloxSettingsServiceProvider extends ServiceProvider
             __DIR__ . '/../Common/Properties/settings.php',
             'gooberblox.common'
         );
+            $this->mergeConfigFrom(
+            __DIR__ . '/../Platform/Universes/Properties/settings.php',
+            'gooberblox.universes'
+        );
     }
     public function boot(): void
     {
@@ -31,6 +35,7 @@ class GooberBloxSettingsServiceProvider extends ServiceProvider
             __DIR__ . '/../AssetMedia/Properties/settings.php' => config_path('gooberblox/assetmedia.php'),
             __DIR__ . '/../Users/Properties/settings.php' => config_path('gooberblox/users.php'),
             __DIR__ . '/../Common/Properties/settings.php' => config_path('gooberblox/common.php'),
+            __DIR__ . '/../Platform/Universes/Properties/settings.php' => config_path('gooberblox/universes.php'),
         ], 'gooberblox-config');
         
     }

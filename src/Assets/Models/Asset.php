@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 use GooberBlox\Assets\Places\Models\PlaceAttribute;
-use GooberBlox\Platform\Universes\Models\Universes;
+use GooberBlox\Platform\Universes\Models\Universe;
 use GooberBlox\Assets\Models\AssetHashes;
 use GooberBlox\Membership\Models\User;
 

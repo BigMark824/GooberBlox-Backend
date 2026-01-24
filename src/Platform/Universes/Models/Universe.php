@@ -4,9 +4,11 @@ namespace GooberBlox\Platform\Universes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use GooberBlox\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Place;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
-class Universes extends Model
+
+class Universe extends Model
 {
     use Cachable;
     protected $fillable = [
@@ -24,4 +26,11 @@ class Universes extends Model
     {
         return $this->hasMany(Asset::class, 'universe_id');
     }
+       
+    public static function getPlaceUniverse(Place $place)
+    {
+        return $place->asset->universe;
+    }
+
 }
+
