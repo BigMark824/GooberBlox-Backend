@@ -26,7 +26,7 @@ class Account extends Authenticatable
 
     public function user()
     {
-        return $this->hasOne(\GooberBlox\Membership\Models\User::class,'account_id');
+        return $this->hasOne(\GooberBlox\Platform\Membership\Models\User::class,'account_id');
     }
     public function accountStatus()
     {
