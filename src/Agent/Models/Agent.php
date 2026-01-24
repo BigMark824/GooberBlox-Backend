@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 use GooberBlox\Agent\Enums\AgentType;
-use GooberBlox\Membership\Models\User;
+use GooberBlox\Platform\Membership\Models\User;
 use GooberBlox\Platform\Groups\Models\Group;
 class Agent extends Model
 {
