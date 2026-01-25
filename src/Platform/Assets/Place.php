@@ -32,6 +32,6 @@ class Place {
 
     public function universe(): ?Universe
     {
-        return $this->asset->universe()->first();
+        return $this->asset->universe;
     }
 }

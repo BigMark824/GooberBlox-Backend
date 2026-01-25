@@ -8,13 +8,15 @@ use Illuminate\Support\Str;
 
 use GooberBlox\Assets\Places\Models\PlaceAttribute;
 use GooberBlox\Platform\Universes\Models\Universe;
-use GooberBlox\Assets\Models\AssetHashes;
-use GooberBlox\Membership\Models\User;
+use GooberBlox\Platform\Membership\Models\User;
 
 use GooberBlox\Assets\Exceptions\UnknownAssetException;
 use GooberBlox\Assets\Enums\AssetType;
+
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class Asset extends Model
 {
+    use Cachable;
     protected $fillable = [
         'asset_type_id',
         'asset_hash_id',
