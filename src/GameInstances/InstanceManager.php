@@ -10,7 +10,7 @@ use GooberBlox\GameInstances\Jobs\StartInstance;
 use GooberBlox\GameInstances\Models\GameInstance;
 use GooberBlox\GameInstances\Exceptions\NoAvailablePortException;
 use GooberBlox\Infrastructure\Models\Server;
-
+use GooberBlox\Infrastructure\ServerManager;
 use Gooberblox\Platform\Games\Models\MatchmakingContext;
 use GooberBlox\Assets\Models\Asset;
 
@@ -54,11 +54,11 @@ class InstanceManager
             serverId: $server->id,
             placeId: $place->id,
             maxPlayers: $place->maxPlayers ?? 24,
-            isBuildServer: $place->placeAttribute->placeType?->place_type === 'Personal Server',
+            isBuildServer: $place->placeAttribute?->placeType?->place_type === 'Personal Server',
             isCloudEdit: false, // TODO: add
             gamePort: $gamePort,
             universeId: $place->universe->id ?? null,
-            ipAddress: $server->ip_address
+            serverIp: $server->primary_ip_address
         );
 
         Log::channel('instance_manager')->info("Dispatched StartInstance job", [

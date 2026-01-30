@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\GameInstances;
+namespace GooberBlox\Infrastructure;
 
 use Illuminate\Support\Facades\Cache;
 
