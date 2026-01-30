@@ -12,9 +12,12 @@ class ServerManager
     // TODO: Implement matchmaking
     public static function getServer()
     {
-        $server = Server::where('server_type', ServerType::Gameserver)
-                ->orWhere('server_type', ServerType::MixServer)
-                ->first();
+        $server = Server::has('serverFarm')
+            ->where(function ($query) {
+                $query->where('server_type_id', ServerType::Gameserver)
+                    ->orWhere('server_type_id', ServerType::MixServer);
+            })
+            ->first();
 
         if (!$server) 
             throw new NoAvailableServerException("No available game servers found.");

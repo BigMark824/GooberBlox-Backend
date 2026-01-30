@@ -11,7 +11,7 @@ use GooberBlox\GameInstances\Models\GameInstance;
 use GooberBlox\GameInstances\Exceptions\NoAvailablePortException;
 use GooberBlox\Infrastructure\Models\Server;
 use GooberBlox\Infrastructure\ServerManager;
-use Gooberblox\Platform\Games\Models\MatchmakingContext;
+use GooberBlox\Platform\Games\Models\MatchmakingContext;
 use GooberBlox\Assets\Models\Asset;
 
 class InstanceManager
