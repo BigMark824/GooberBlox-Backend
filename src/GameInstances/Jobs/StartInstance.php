@@ -51,7 +51,7 @@ class StartInstance implements ShouldQueue
     public function handle(): void
     {
         $jobId = Str::uuid();
-        $job = new Job($jobId, $expirationInSeconds = 9000000);
+        $job = new Job('', $expirationInSeconds = 9000000);
 
         try {
             $gridService = new GridService("http://{$this->serverIp}:" . config('grid.Defaults.Port'));
@@ -88,11 +88,11 @@ class StartInstance implements ShouldQueue
             );
 
             $job->arbiter($gridService)->script($luaScript)->open();
-
+            
             $instanceManager = new InstanceManager($this->placeId);
             $server = Server::find($this->serverId);
 
-            $instanceManager->createInstance($jobId, $this->gamePort, $jobId, $server);
+            $instanceManager->createInstance($job->id, $this->gamePort, $jobId, $server);
 
             Cache::forget("place:{$this->placeId}:starting");
 

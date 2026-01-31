@@ -2,8 +2,11 @@
 
 namespace GooberBlox\Assets\Models;
 
+use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Assets\Enums\CreatorType;
 use Illuminate\Database\Eloquent\Model;
-use GooberBlox\Assets\Models\Asset;
+
+use GooberBlox\Services\FilesManager;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class AssetHash extends Model
@@ -17,5 +20,19 @@ class AssetHash extends Model
         'creator_id',
         'creator_type'
     ];
+
+    public function upload(string $contents, int $creatorId, AssetType $assetType, ?CreatorType $creatorType = CreatorType::User) : AssetHash
+    {
+        $hash = FilesManager::singleton()->addFile($contents);
+
+        $assetHash = AssetHash::create([
+            'asset_type_id' => AssetType::Avatar,
+            'hash' => $hash,
+            'creator_id' => $creatorId,
+            'creator_type' => $creatorType
+        ]);
+
+        return $assetHash;
+    }
 
 }

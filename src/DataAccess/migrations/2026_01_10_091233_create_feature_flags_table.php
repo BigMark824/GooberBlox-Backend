@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('group');
             $table->text('name');
-            $table->string('value');
+            $table->text('value');
             $table->timestamps();
         });
     }

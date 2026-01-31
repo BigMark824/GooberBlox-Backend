@@ -10,6 +10,8 @@ use GooberBlox\Outfits\Models\Outfit;
 use GooberBlox\Platform\Core\Exceptions\PlatformDataIntegrityException;
 use GooberBlox\Platform\Outfits\KeyGeneratorInput;
 use GooberBlox\Platform\Outfits\KeyGenerator;
+
+use GooberBlox\Platform\Avatar\Models\UserAvatar;
 use GooberBlox\Assets\Models\Asset;
 use GooberBlox\Assets\Enums\AssetType;
 

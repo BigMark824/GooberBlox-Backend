@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 use GooberBlox\Platform\Outfits\KeyGeneratorInput;
 use GooberBlox\Assets\Models\AssetHash;
-use GooberBlox\Services\FilesManager;
+use GooberBlox\Assets\Enums\CreatorType;
 class KeyGenerator
 {
     // For more information see Roblox.Platform.Outfits.KeyGenerator
@@ -37,15 +37,8 @@ class KeyGenerator
 
     public static function generateAssetHash(string $keyUrl, int $userId): AssetHash
     {
-        (string)$hash = FilesManager::singleton()->addFile($keyUrl);
-
-        return $assetHash = AssetHash::create([
-            'asset_type_id' => AssetType::Avatar,
-            'hash' => $hash,
-            'creator_id' => $userId,
-            'creator_type' => \GooberBlox\Assets\Enums\CreatorType::User
-        ]);
-        
+        $assetHash = AssetHash::upload($keyUrl, $userId, AssetType::Avatar);
+        return $assetHash;
     }
 
 }
