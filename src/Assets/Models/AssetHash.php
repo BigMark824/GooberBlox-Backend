@@ -20,6 +20,10 @@ class AssetHash extends Model
         'creator_id',
         'creator_type'
     ];
+    public function asset()
+    {
+        return $this->hasOne(Asset::class);
+    }
 
     public function upload(string $contents, int $creatorId, AssetType $assetType, ?CreatorType $creatorType = CreatorType::User) : AssetHash
     {
@@ -33,6 +37,10 @@ class AssetHash extends Model
         ]);
 
         return $assetHash;
+    }
+    public function retrieve(string $hash): string
+    {
+        return FilesManager::singleton()->getStream($hash);
     }
 
 }
