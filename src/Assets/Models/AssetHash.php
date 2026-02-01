@@ -38,7 +38,7 @@ class AssetHash extends Model
 
         return $assetHash;
     }
-    public function retrieve(string $hash): string
+    public static function retrieve($hash): string
     {
         return FilesManager::singleton()->getStream($hash);
     }

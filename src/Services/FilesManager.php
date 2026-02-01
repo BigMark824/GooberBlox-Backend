@@ -34,22 +34,30 @@ class FilesManager
         return $assetId;
     }
 
-    public function getStream(string $hash): string
+    public function getStream(string|int $id): string
     {
+        $isRawAsset = is_numeric($id);
+
+        $s3Path = $isRawAsset
+            ? (string)$id
+            : $id;
+
         try {
-            if (Storage::disk('s3')->exists($hash)) {
-                return Storage::disk('s3')->get($hash);
+            if (Storage::disk('s3')->exists($s3Path)) {
+                return Storage::disk('s3')->get($s3Path);
             }
         } catch (\Exception $e) {
-            Log::warning("Failed to read {$hash} from S3: {$e->getMessage()}");
+            Log::warning("Failed to read {$s3Path} from S3: {$e->getMessage()}");
         }
-        $localPath = $this->getLocalPath($hash);
+        $localPath = $isRawAsset
+            ? $this->getLocalPathForRaw((int)$id)
+            : $this->getLocalPath((string)$id);
 
         if (Storage::disk('local')->exists($localPath)) {
             return Storage::disk('local')->get($localPath);
         }
 
-        throw new \RuntimeException("File not found in inventory: {$hash}");
+        throw new \RuntimeException("File not found in inventory: {$id}");
     }
 
 
@@ -132,7 +140,7 @@ class FilesManager
         return "assets/{$folder}/{$hash}";
     }
 
-    private function getLocalPathForRaw(string $assetId): string
+    private function getLocalPathForRaw(int $assetId): string
     {
         return "assets/raw/{$assetId}";
     }
