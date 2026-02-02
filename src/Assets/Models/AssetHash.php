@@ -25,12 +25,12 @@ class AssetHash extends Model
         return $this->hasOne(Asset::class);
     }
 
-    public function upload(string $contents, int $creatorId, AssetType $assetType, ?CreatorType $creatorType = CreatorType::User) : AssetHash
+    public static function upload(string $contents, int $creatorId, AssetType $assetType, ?CreatorType $creatorType = CreatorType::User) : AssetHash
     {
         $hash = FilesManager::singleton()->addFile($contents);
 
         $assetHash = AssetHash::create([
-            'asset_type_id' => AssetType::Avatar,
+            'asset_type_id' => $assetType,
             'hash' => $hash,
             'creator_id' => $creatorId,
             'creator_type' => $creatorType
