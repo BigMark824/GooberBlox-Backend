@@ -1,8 +1,8 @@
 <?php
 namespace GooberBlox\Assets\Enums;
 
-enum CreatorType
+enum CreatorType : int
 {
-  const User = 1;
-  const Group = 2;
+  case User = 1;
+  case Group = 2;
 }
