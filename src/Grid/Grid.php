@@ -15,7 +15,7 @@ class Grid {
     {
         $ipAddress = $this->request->ip();
  
-        $server = Server::where('ip_address', $ipAddress)->first();
+        $server = Server::where('primary_ip_address', $ipAddress)->first();
 
         return $server ? $server->toArray() : null;
     }
