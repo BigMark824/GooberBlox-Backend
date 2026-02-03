@@ -15,4 +15,9 @@ class AssetVersion extends Model
         'creator_target_id',
         'creating_universe_id'
     ];
+
+    public function asset()
+    {
+        return $this->hasMany(Asset::class);
+    }
 }

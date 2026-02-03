@@ -70,9 +70,12 @@ class Asset extends Model
     }
     public function assetHash()
     {
-        return $this->belongsTo(AssetHash::class, 'asset_hash_id');
+        return $this->belongsTo(AssetHash::class, 'current_version_id');
     }
-
+    public function assetVersion()
+    {
+        return $this->belongsTo(AssetVersion::class, 'asset_hash_id');
+    }
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id');
