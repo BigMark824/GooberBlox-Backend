@@ -23,36 +23,27 @@ class FilesManager
     public function addFile(string $compressedData, string $contentType = null): string
     {
         (string)$hash = HashFunctions::computeHashString($compressedData);
-        $this->upload($hash, $compressedData, $contentType);
+        $this->upload($compressedData, $contentType);
         return $hash;
     }
 
-    public function getStream(string|int $id): string
+    public function getStream(string $hash): string
     {
-        $isRawAsset = is_numeric($id);
-
-        $s3Path = $isRawAsset
-            ? (string)$id
-            : $id;
-
         try {
-            if (Storage::disk('s3')->exists($s3Path)) {
-                return Storage::disk('s3')->get($s3Path);
+            if (Storage::disk('s3')->exists($hash)) {
+                return Storage::disk('s3')->get($hash);
             }
         } catch (\Exception $e) {
-            Log::warning("Failed to read {$s3Path} from S3: {$e->getMessage()}");
+            Log::warning("Failed to read {$hash} from S3: {$e->getMessage()}");
         }
-        $localPath = $isRawAsset
-            ? $this->getLocalPathForRaw((int)$id)
-            : $this->getLocalPath((string)$id);
+        $localPath = $this->getLocalPath($hash);
 
         if (Storage::disk('local')->exists($localPath)) {
             return Storage::disk('local')->get($localPath);
         }
 
-        throw new \RuntimeException("File not found in inventory: {$id}");
+        throw new \RuntimeException("File not found in inventory: {$hash}");
     }
-
 
     public function upload(string $sourceContentHash, string $data, ?string $contentType = null, ?string $format = null): void
     {
@@ -91,10 +82,8 @@ class FilesManager
             'content_type' => $contentType,
         ]));
     }
-
     private function getLocalPath(string $hash): string
     {
-        $folder = substr($hash, 0, 2);
-        return "Assets/{$folder}/{$hash}";
+        return "CDN/{$hash}";
     }
 }
