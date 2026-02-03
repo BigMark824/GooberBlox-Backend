@@ -2,7 +2,6 @@
 
 namespace GooberBlox\Services;
 
-// TODO: More work on this, this is great for now though. 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
