@@ -95,11 +95,6 @@ class FilesManager
     private function getLocalPath(string $hash): string
     {
         $folder = substr($hash, 0, 2);
-        return "assets/{$folder}/{$hash}";
-    }
-
-    private function getLocalPathForRaw(int $assetId): string
-    {
-        return "assets/raw/{$assetId}";
+        return "Assets/{$folder}/{$hash}";
     }
 }
