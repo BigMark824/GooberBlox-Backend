@@ -23,7 +23,7 @@ class FilesManager
     public function addFile(string $compressedData, string $contentType = null): string
     {
         (string)$hash = HashFunctions::computeHashString($compressedData);
-        $this->upload($compressedData, $contentType);
+        $this->upload($hash, $compressedData, $contentType);
         return $hash;
     }
 
