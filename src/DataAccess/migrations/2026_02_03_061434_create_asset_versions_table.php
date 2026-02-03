@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('version_number');
             $table->bigInteger('asset_hash_id');
             $table->bigInteger('parent_asset_version_id')->nullable();
-            $table->enum('creator_type', ['User','Group'])->default('User');
+            $table->integer('creator_type')->default(1 /* user */);
             $table->bigInteger('creator_target_id')->comment('Creator agent ID');
             $table->bigInteger('creating_universe_id')->nullable();
             $table->timestamps();
