@@ -18,6 +18,7 @@ class Asset extends Model
 {
     use Cachable;
     protected $fillable = [
+        'id',
         'asset_type_id',
         'asset_hash_id',
         'asset_categories',
