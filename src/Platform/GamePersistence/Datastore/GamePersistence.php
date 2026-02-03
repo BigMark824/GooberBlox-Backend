@@ -44,7 +44,48 @@ class GamePersistence
             throw new UnknownDatastoreValueException();
 
         return $datastore;
+    }   
+
+    // TODO: make a bit cleaner
+    public function getSorted(int $placeId, $type, $scope, bool $ascending = false, $exclusiveStartKey, $pageSize, $inclusiveMinValue = null, $exclusiveMaxValue = null): array
+    {
+        if (!$placeId || !$type || !$scope) {
+            return [];
+        }
+    
+        $order = ($ascending == "True") ? 'asc' : 'desc';
+    
+        $query = DataStore::where('place_id', $placeId)
+            ->where('type', $type)
+            ->where('scope', $scope);
+    
+        if ($inclusiveMinValue !== NULL) {
+            $query->where('value', '>=', $inclusiveMinValue);
+        }
+        if ($exclusiveMaxValue !== NULL) {
+            $query->where('value', '<', $exclusiveMaxValue);
+        }
+    
+        $query->orderBy('value', $order);
+    
+        $results = $query->paginate($pageSize, ['*'], 'page', $exclusiveStartKey);
+    
+        $datalist = [];
+        foreach ($results as $data) {
+            $datalist[] = [
+                "Value" => $data->value,
+                "Key" => $data->key,
+                "Target" => $data->target,
+                "Scope" => $data->scope
+            ];
+        }
+
+        return [
+            "Entries" => $datalist,
+            "ExclusiveStartKey" => $results->hasMorePages() ? $results->currentPage() + 1 : null
+        ];
     }
+
     public function setAync() : void
     {
         $datastore = SetAsync::dispatch(
