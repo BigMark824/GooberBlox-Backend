@@ -60,8 +60,7 @@ class UserAvatar extends Model
             $wornAssets[] = new WornAsset(
                 assetId: $assetId, 
                 isEquippedGear: false, 
-                isGear: false,
-                isWearable: true,      
+                isGear: false,     
                 isAnimation: false,   
                 assetTypeId: AssetType::Shirt->value,    // TODO: temporary
             );
