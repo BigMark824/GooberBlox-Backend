@@ -55,6 +55,7 @@ class Asset extends Model
                 return Asset::where('id', $placeId)
                     ->where('asset_type_id', AssetType::Place)
                     ->with('universe')
+                    ->with('placeAttribute.placeType')
                     ->first();
             } catch (UnknownAssetException $e) {
                 throw $e;
@@ -62,8 +63,13 @@ class Asset extends Model
     }
     public function placeAttribute()
     {
-        return $this->belongsTo(PlaceAttribute::class, 'place_id');
+        return $this->hasOne(PlaceAttribute::class, 'place_id', 'id');
     }
+    public function isBuildServer(): bool
+    {
+        return $this->placeAttribute?->placeType?->place_type === 'Personal Server';
+    }
+
     public function universe()
     {
         return $this->belongsTo(Universe::class, 'universe_id');

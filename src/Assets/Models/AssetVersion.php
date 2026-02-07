@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class AssetVersion extends Model
 {
-    public $incrementing = false;
     protected $keyType = 'int';
     protected $fillable = [
         'asset_id',

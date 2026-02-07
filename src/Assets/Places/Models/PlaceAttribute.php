@@ -2,15 +2,12 @@
 
 namespace GooberBlox\Assets\Places\Models;
 
-use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 use GooberBlox\Assets\Models\Asset;
 use GooberBlox\Assets\Exceptions\UnknownAssetException;
 class PlaceAttribute extends Model
 {
-    use Cachable;
-
     protected $originalUniverseID;
 
     protected $originalUniverseIDIsDirty = false;

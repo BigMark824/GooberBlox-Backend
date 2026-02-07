@@ -10,91 +10,98 @@ use GooberBlox\Platform\Universes\Enums\DatastoreType;
 class GamePersistence
 {
     protected int $placeId;
-    protected string $key;
+    protected ?string $key;
     protected string $type;
     protected string $scope;
-    protected string $target;
-    protected string $value;
+    protected ?string $target;
     protected DatastoreType $datastoreType;
+
     public function __construct(
         int $placeId,
-        string $key,
-        string $type, 
-        string $scope, 
-        string $target, 
-        string $value,
+        ?string $key,
+        string $type,
+        string $scope,
+        ?string $target,
         DatastoreType $datastoreType
-    ){
+    ) {
         $this->placeId = $placeId;
         $this->key = $key;
         $this->type = $type;
         $this->scope = $scope;
         $this->target = $target;
-        $this->value = $value;
         $this->datastoreType = $datastoreType;
     }
-    public function get() : Datastore
+
+    public function get()
     {
-        $datastore = DataStore::where('place_id', $this->placeId)
+        $query = Datastore::where('place_id', $this->placeId)
             ->where('type', $this->type)
             ->where('scope', $this->scope)
             ->where('datastore_type', $this->datastoreType);
 
-        if(!$datastore)
-            throw new UnknownDatastoreValueException();
-
-        return $datastore;
-    }   
-
-    // TODO: make a bit cleaner
-    public function getSorted(int $placeId, $type, $scope, bool $ascending = false, $exclusiveStartKey, $pageSize, $inclusiveMinValue = null, $exclusiveMaxValue = null): array
-    {
-        if (!$placeId || !$type || !$scope) {
-            return [];
+        if ($this->target !== null && $this->key !== null) {
+            $query->where('target', $this->target)
+                ->where('key', $this->key);
         }
-    
-        $order = ($ascending == "True") ? 'asc' : 'desc';
-    
-        $query = DataStore::where('place_id', $placeId)
+
+        return $query->get(); 
+    }
+
+    public function getSorted(
+        int $placeId,
+        string $type,
+        string $scope,
+        bool $ascending = false,
+        ?int $exclusiveStartKey = null,
+        int $pageSize = 50,
+        $inclusiveMinValue = null,
+        $exclusiveMaxValue = null
+    ): array {
+        $order = $ascending ? 'asc' : 'desc';
+
+        $query = Datastore::where('place_id', $placeId)
             ->where('type', $type)
             ->where('scope', $scope);
-    
-        if ($inclusiveMinValue !== NULL) {
+
+        if ($inclusiveMinValue !== null) {
             $query->where('value', '>=', $inclusiveMinValue);
         }
-        if ($exclusiveMaxValue !== NULL) {
+
+        if ($exclusiveMaxValue !== null) {
             $query->where('value', '<', $exclusiveMaxValue);
         }
-    
+
         $query->orderBy('value', $order);
-    
-        $results = $query->paginate($pageSize, ['*'], 'page', $exclusiveStartKey);
-    
-        $datalist = [];
+
+        $results = $query->paginate($pageSize, ['*'], 'page', $exclusiveStartKey ?? 1);
+
+        $entries = [];
         foreach ($results as $data) {
-            $datalist[] = [
-                "Value" => $data->value,
-                "Key" => $data->key,
-                "Target" => $data->target,
-                "Scope" => $data->scope
+            $entries[] = [
+                'Value' => $data->value,
+                'Key' => $data->key,
+                'Target' => $data->target,
+                'Scope' => $data->scope,
             ];
         }
 
         return [
-            "Entries" => $datalist,
-            "ExclusiveStartKey" => $results->hasMorePages() ? $results->currentPage() + 1 : null
+            'Entries' => $entries,
+            'ExclusiveStartKey' => $results->hasMorePages()
+                ? $results->currentPage() + 1
+                : null,
         ];
     }
 
-    public function setAync() : void
+    public function setAsync(string $value): void
     {
-        $datastore = SetAsync::dispatch(
+        SetAsync::dispatch(
             $this->placeId,
             $this->key,
             $this->type,
             $this->scope,
             $this->target,
-            $this->value,
+            $value,
             $this->datastoreType
         );
     }

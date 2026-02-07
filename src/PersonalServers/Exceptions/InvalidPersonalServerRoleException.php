@@ -1,0 +1,14 @@
+<?php
+
+namespace GooberBlox\PersonalServers\Exceptions;
+
+use Exception;
+use Throwable;
+
+class InvalidPersonalServerRoleException extends Exception
+{
+    public function __construct(string $message, int $code = 0, ?Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
+}

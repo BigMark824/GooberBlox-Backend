@@ -5,6 +5,7 @@ namespace GooberBlox\Platform\Assets;
 use GooberBlox\Assets\Models\Asset;
 use GooberBlox\Assets\Exceptions\UnknownAssetException;
 use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Assets\Places\Models\PlaceAttribute;
 use GooberBlox\Platform\Universes\Models\Universe;
 
 class Place {
@@ -33,5 +34,10 @@ class Place {
     public function universe(): ?Universe
     {
         return $this->asset->universe;
+    }
+
+    public function attribute(): ?PlaceAttribute
+    {
+        return $this->asset->placeAttribute;
     }
 }

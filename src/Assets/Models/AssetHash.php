@@ -41,6 +41,10 @@ class AssetHash extends Model
             'creator_type' => $creatorType
         ]);
 
+        $assetVersion = AssetVersion::create([
+            'asset_id'
+        ]);
+
         return $assetHash;
     }
     public static function retrieve(string $hash): string
