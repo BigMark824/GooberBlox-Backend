@@ -5,7 +5,7 @@ namespace GooberBlox\PersonalServers\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
-class PersonalServerRanks extends Model
+class PersonalServerRoleset extends Model
 {
     use Cachable;
 

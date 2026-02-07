@@ -9,8 +9,8 @@ use GooberBlox\Assets\Enums\AssetType;
 use GooberBlox\Platform\Assets\Place;
 use GooberBlox\Assets\Models\AssetHash;
 
-use GooberBlox\PersonalServers\Models\PersonalServerRanks;
-use GooberBlox\PersonalServers\Enums\PersonalServerRoleset;
+use GooberBlox\PersonalServers\Models\PersonalServerRoleset;
+use GooberBlox\PersonalServers\Enums\PersonalServerRoles;
 class PersonalServer {
     public static function savePersonalServer(Place $place, string $contents): void
     {
@@ -40,7 +40,7 @@ class PersonalServer {
         }
     }
 
-    public static function setRolesetForUser(Place $place, ?int $userId, PersonalServerRoleset $newRank) : ?PersonalServerRanks
+    public static function setRolesetForUser(Place $place, ?int $userId, PersonalServerRoles $newRank) : ?PersonalServerRoleset
     {
         if( !$place || !$place->asset->isBuildServer )
         {
@@ -48,23 +48,23 @@ class PersonalServer {
         }
 
         if (!in_array($newRank, [
-            PersonalServerRoleset::OWNER,
-            PersonalServerRoleset::ADMIN,
-            PersonalServerRoleset::MEMBER,
-            PersonalServerRoleset::BANNED,
-            PersonalServerRoleset::VISITOR,
+            PersonalServerRoles::OWNER,
+            PersonalServerRoles::ADMIN,
+            PersonalServerRoles::MEMBER,
+            PersonalServerRoles::BANNED,
+            PersonalServerRoles::VISITOR,
         ], true)) {
             throw new InvalidPersonalServerRoleException("Invalid Rank");
         }
 
-        if ($newRank === PersonalServerRoleset::VISITOR) {
-            PersonalServerRanks::where('place_id', $place->asset->id)
+        if ($newRank === PersonalServerRoles::VISITOR) {
+            PersonalServerRoleset::where('place_id', $place->asset->id)
                 ->where('user_id', $userId)
                 ->delete();
 
             return null;
         } else {
-            $rank = PersonalServerRanks::where('place_id', $place->asset->id)
+            $rank = PersonalServerRoleset::where('place_id', $place->asset->id)
                 ->where('user_id', $userId)
                 ->first();
             
@@ -72,7 +72,7 @@ class PersonalServer {
                 $rank->rank = $newRank->value;
                 $rank->save();
             } else {
-                $rank = new PersonalServerRanks;
+                $rank = new PersonalServerRoleset;
                 $rank->place_id = $place->asset->id;
                 $rank->user_id = $userId;
                 $rank->rank = $newRank->value;
@@ -83,21 +83,21 @@ class PersonalServer {
         return $rank;
     }
 
-    public static function getRolesetForUser(Place $place, int $userId): PersonalServerRoleset
+    public static function getRolesetForUser(Place $place, int $userId): PersonalServerRoles
     {
         if ( !$place || !$place->asset->isBuildServer ) {
             throw new UnknownPersonalServerException();
         }
 
         if ($userId == $place->asset->creator->id) {
-            return PersonalServerRoleset::OWNER;
+            return PersonalServerRoles::OWNER;
         }
 
-        $rank = PersonalServerRanks::where('user_id', $userId)
+        $rank = PersonalServerRoleset::where('user_id', $userId)
             ->where('place_id', $place->asset->id)
             ->first();
 
-        return $rank ? PersonalServerRoleset::from($rank->rank) : PersonalServerRoleset::VISITOR;
+        return $rank ? PersonalServerRoles::from($rank->rank) : PersonalServerRoles::VISITOR;
     }
 
 }

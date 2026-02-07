@@ -2,7 +2,7 @@
 
 namespace GooberBlox\PersonalServers\Enums;
 
-enum PersonalServerRoleset : int
+enum PersonalServerRoles : int
 {
     case OWNER = 255;
     case ADMIN = 240;
