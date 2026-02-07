@@ -73,8 +73,8 @@ class PersonalServer {
                 $rank->save();
             } else {
                 $rank = new PersonalServerRanks;
-                $rank->placeId = $place->asset->id;
-                $rank->userId = $userId;
+                $rank->place_id = $place->asset->id;
+                $rank->user_id = $userId;
                 $rank->rank = $newRank->value;
                 $rank->save();
             }
