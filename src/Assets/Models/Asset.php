@@ -65,10 +65,11 @@ class Asset extends Model
     {
         return $this->hasOne(PlaceAttribute::class, 'place_id', 'id');
     }
-    public function isBuildServer(): bool
+    public function getIsBuildServerAttribute(): bool
     {
         return $this->placeAttribute?->placeType?->place_type === 'Personal Server';
     }
+
 
     public function universe()
     {
