@@ -54,7 +54,7 @@ class InstanceManager
             serverId: $server->id,
             placeId: $place->id,
             maxPlayers: $place->maxPlayers ?? 24,
-            isBuildServer: $place->isBuildServer(),
+            isBuildServer: $place->is_build_server,
             isCloudEdit: false, // TODO: add
             gamePort: $gamePort,
             universeId: $place->universe->id ?? null,
@@ -65,7 +65,7 @@ class InstanceManager
             'serverId' => $server->id,
             'serverIp' => $server->primary_ip_address,
             'placeId' => $place->id,
-            'isBuildServer' => $place->isBuildServer(),
+            'isBuildServer' => $place->is_build_server,
             'universeId' => $place->universe->id ?? null,
             'gamePort' => $gamePort
         ]);

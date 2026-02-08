@@ -70,7 +70,6 @@ class Asset extends Model
         return $this->placeAttribute?->placeType?->place_type === 'Personal Server';
     }
 
-
     public function universe()
     {
         return $this->belongsTo(Universe::class, 'universe_id');

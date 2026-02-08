@@ -14,7 +14,7 @@ use GooberBlox\PersonalServers\Enums\PersonalServerRoles;
 class PersonalServer {
     public static function savePersonalServer(Place $place, string $contents): void
     {
-        if( !$place || !$place->asset->isBuildServer )
+        if( !$place || !$place->asset->is_build_server )
         {
             throw new UnknownPersonalServerException();
         }
@@ -42,7 +42,7 @@ class PersonalServer {
 
     public static function setRolesetForUser(Place $place, ?int $userId, PersonalServerRoles $newRank) : ?PersonalServerRoleset
     {
-        if( !$place || !$place->asset->isBuildServer )
+        if( !$place || !$place->asset->is_build_server )
         {
             throw new UnknownPersonalServerException();
         }
@@ -85,7 +85,7 @@ class PersonalServer {
 
     public static function getRolesetForUser(Place $place, int $userId): PersonalServerRoles
     {
-        if ( !$place || !$place->asset->isBuildServer ) {
+        if ( !$place || !$place->asset->is_build_server ) {
             throw new UnknownPersonalServerException();
         }
 
