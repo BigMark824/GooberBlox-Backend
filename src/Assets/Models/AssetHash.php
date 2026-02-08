@@ -34,18 +34,12 @@ class AssetHash extends Model
     {
         $hash = FilesManager::singleton()->addFile($contents);
 
-        $assetHash = AssetHash::create([
+        return AssetHash::create([
             'asset_type_id' => $assetType,
             'hash' => $hash,
             'creator_id' => $creatorId,
             'creator_type' => $creatorType
         ]);
-
-        $assetVersion = AssetVersion::create([
-            'asset_id'
-        ]);
-
-        return $assetHash;
     }
     public static function retrieve(string $hash): string
     {

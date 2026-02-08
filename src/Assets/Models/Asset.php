@@ -76,15 +76,9 @@ class Asset extends Model
     }
     public function assetHash()
     {
-        return $this->hasOneThrough(
-            AssetHash::class,
-            AssetVersion::class,
-            'id',
-            'id',
-            'current_version_id',
-            'asset_hash_id'
-        );
+        return $this->belongsTo(AssetHash::class, 'asset_hash_id');
     }
+
     public function versions()
     {
         return $this->hasMany(AssetVersion::class);
