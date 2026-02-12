@@ -21,7 +21,7 @@ class Server extends Model
             ServerGroup::class,
             'server_group_members',
             'server_id',
-            'server_group_id'
+            'server_group'
         );
     }
 
