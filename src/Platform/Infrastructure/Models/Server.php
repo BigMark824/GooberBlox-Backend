@@ -2,10 +2,12 @@
 
 namespace GooberBlox\Platform\Infrastructure\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use GooberBlox\Platform\Infrastructure\Enums\ServerGroup as ServerGroupEnum;
 class Server extends Model
 {
+    use Cachable;
     protected $fillable = [
         'name',
         'host_name',
