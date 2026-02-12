@@ -1,7 +1,6 @@
 <?php
 
 namespace GooberBlox\Platform\GamePersistence\Datastore;
-
 use GooberBlox\Platform\GamePersistence\Datastore\Jobs\SetAsync;
 use GooberBlox\Platform\GamePersistence\Datastore\Models\Datastore;
 use GooberBlox\Platform\GamePersistence\Datastore\Exceptions\UnknownDatastoreValueException;
@@ -9,7 +8,7 @@ use GooberBlox\Platform\Universes\Enums\DatastoreType;
 
 class GamePersistence
 {
-    protected int $placeId;
+    protected int $universeId;
     protected ?string $key;
     protected string $type;
     protected string $scope;
@@ -17,14 +16,14 @@ class GamePersistence
     protected DatastoreType $datastoreType;
 
     public function __construct(
-        int $placeId,
+        int $universeId,
         ?string $key,
         string $type,
         string $scope,
         ?string $target,
         DatastoreType $datastoreType
     ) {
-        $this->placeId = $placeId;
+        $this->universeId = $universeId;
         $this->key = $key;
         $this->type = $type;
         $this->scope = $scope;
@@ -34,7 +33,7 @@ class GamePersistence
 
     public function get()
     {
-        $query = Datastore::where('place_id', $this->placeId)
+        $query = Datastore::where('universe_id', $this->universeId)
             ->where('type', $this->type)
             ->where('scope', $this->scope)
             ->where('datastore_type', $this->datastoreType);
@@ -48,7 +47,6 @@ class GamePersistence
     }
 
     public function getSorted(
-        int $placeId,
         string $type,
         string $scope,
         bool $ascending = false,
@@ -59,7 +57,7 @@ class GamePersistence
     ): array {
         $order = $ascending ? 'asc' : 'desc';
 
-        $query = Datastore::where('place_id', $placeId)
+        $query = Datastore::where('universe_id', $this->universeId)
             ->where('type', $type)
             ->where('scope', $scope);
 
@@ -96,7 +94,7 @@ class GamePersistence
     public function setAsync(string $value): void
     {
         SetAsync::dispatch(
-            $this->placeId,
+            $this->universeId,
             $this->key,
             $this->type,
             $this->scope,

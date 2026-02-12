@@ -15,7 +15,7 @@ use GooberBlox\Platform\GamePersistence\Datastore\Events\DatastoreEvent;
 class SetAsync implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected int $placeId;
+    protected int $universeId;
     protected string $key;
     protected string $type;
     protected string $scope;
@@ -24,7 +24,7 @@ class SetAsync implements ShouldQueue
     protected DatastoreType $datastoreType;
 
     public function __construct(
-        int $placeId,
+        int $universeId,
         string $key,
         string $type, 
         string $scope, 
@@ -32,7 +32,7 @@ class SetAsync implements ShouldQueue
         string $value,
         DatastoreType $datastoreType
     ) {
-        $this->placeId = $placeId;
+        $this->universeId = $universeId;
         $this->key = $key;
         $this->type = $type;
         $this->scope = $scope;
@@ -45,7 +45,7 @@ class SetAsync implements ShouldQueue
     {
         Datastore::updateOrCreate(
             [
-                'universe_id' => $this->placeId,
+                'universe_id' => $this->universeId,
                 'key' => $this->key,
                 'scope' => $this->scope,
                 'target' => $this->target,
@@ -59,7 +59,7 @@ class SetAsync implements ShouldQueue
 
         event(new DatastoreEvent(
             $this->job->uuid(),
-            $this->placeId,
+            $this->universeId,
             $this->key,
             $this->type,
             $this->scope,
