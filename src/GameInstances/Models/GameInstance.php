@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 use GooberBlox\Platform\Games\Models\MatchMakingContext;
-use GooberBlox\Infrastructure\Models\Server;
+use GooberBlox\Platform\Infrastructure\Models\Server;
 class GameInstance extends Model
 {
     use HasUuids, Cachable;

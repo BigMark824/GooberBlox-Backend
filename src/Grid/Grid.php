@@ -3,7 +3,7 @@
 namespace GooberBlox\Grid;
 
 use Illuminate\Http\Request;
-use GooberBlox\Infrastructure\Models\Server;
+use GooberBlox\Platform\Infrastructure\Models\Server;
 class Grid {
     protected $request;
     public function __construct(Request $request)

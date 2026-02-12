@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0322214260b2b7bdcac74e10b375daf6",
+    "content-hash": "0dee4ed9d9953f8dfa5a4784153dc771",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -5313,19 +5313,24 @@
         },
         {
             "name": "virtubrick/grid",
-            "version": "1.0.1.x-dev",
+            "version": "1.0.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RBXC/virtubrick-grid.git",
-                "reference": "498b344bef6a5a8693510f9d9f3ca2a71d5d1ed6"
+                "reference": "208fd6e25504e943bbaee8b8f977ac29bb066e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RBXC/virtubrick-grid/zipball/498b344bef6a5a8693510f9d9f3ca2a71d5d1ed6",
-                "reference": "498b344bef6a5a8693510f9d9f3ca2a71d5d1ed6",
+                "url": "https://api.github.com/repos/RBXC/virtubrick-grid/zipball/208fd6e25504e943bbaee8b8f977ac29bb066e89",
+                "reference": "208fd6e25504e943bbaee8b8f977ac29bb066e89",
                 "shasum": ""
             },
             "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Virtubrick\\Grid\\": "src/"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
@@ -5338,9 +5343,9 @@
             "description": "Helper library for communicating with the Roblox Grid Service.",
             "support": {
                 "issues": "https://github.com/RBXC/virtubrick-grid/issues",
-                "source": "https://github.com/RBXC/virtubrick-grid/tree/develop"
+                "source": "https://github.com/RBXC/virtubrick-grid/tree/v1.0.3"
             },
-            "time": "2024-05-12T08:10:31+00:00"
+            "time": "2026-02-12T00:29:33+00:00"
         },
         {
             "name": "voku/portable-ascii",

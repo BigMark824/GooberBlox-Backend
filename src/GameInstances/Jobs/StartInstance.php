@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Virtubrick\Grid\GridService;
 use Virtubrick\Grid\Rcc\{Job, LuaScript};
-use GooberBlox\Infrastructure\Models\Server;
+use GooberBlox\Platform\Infrastructure\Models\Server;
 use GooberBlox\GameInstances\InstanceManager;
 
 class StartInstance implements ShouldQueue
@@ -50,7 +50,6 @@ class StartInstance implements ShouldQueue
 
     public function handle(): void
     {
-        $jobId = Str::uuid();
         $job = new Job('', $expirationInSeconds = 9000000);
 
         try {
@@ -62,7 +61,7 @@ class StartInstance implements ShouldQueue
                 [
                     $this->placeId,
                     $this->gamePort,
-                    $jobId,
+                    $job->id,
                     0,
                     env('GRID_ACCESS_KEY'),
                     'false',
@@ -76,7 +75,7 @@ class StartInstance implements ShouldQueue
                     env('GRID_API_KEY'),
                     $this->isBuildServer ? 124885177 : 0,
                     0,
-                    $jobId,
+                    $job->id,
                     $this->universeId,
                     24,
                     $this->isCloudEdit ? 3 : 0,
@@ -92,11 +91,11 @@ class StartInstance implements ShouldQueue
             $instanceManager = new InstanceManager($this->placeId);
             $server = Server::find($this->serverId);
 
-            $instanceManager->createInstance($job->id, $this->gamePort, $jobId, $server);
+            $instanceManager->createInstance($job->id, $this->gamePort, $job->id, $server);
 
             Cache::forget("place:{$this->placeId}:starting");
 
-            Log::info("StartInstance job completed", ['jobId' => $jobId]);
+            Log::info("StartInstance job completed", ['jobId' => $job->id]);
         } catch (\Exception $e) {
             Log::error("Failed to start instance", [
                 'serverId' => $this->serverId,

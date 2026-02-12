@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 use GooberBlox\GameInstances\Jobs\StartInstance;
 use GooberBlox\GameInstances\Models\GameInstance;
 use GooberBlox\GameInstances\Exceptions\NoAvailablePortException;
-use GooberBlox\Infrastructure\Models\Server;
-use GooberBlox\Infrastructure\ServerManager;
+use GooberBlox\Platform\Infrastructure\Models\Server;
+use GooberBlox\Platform\Infrastructure\ServerManager;
 use GooberBlox\Platform\Games\Models\MatchmakingContext;
 use GooberBlox\Assets\Models\Asset;
 

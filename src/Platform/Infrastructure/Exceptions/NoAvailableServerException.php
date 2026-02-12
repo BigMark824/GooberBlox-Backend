@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Infrastructure\Exceptions;
+namespace GooberBlox\Platform\Infrastructure\Exceptions;
 
 use Exception;
 use Throwable;

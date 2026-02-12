@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Infrastructure\Enums;
+namespace GooberBlox\Platform\Infrastructure\Enums;
 
 enum ServerStatus
 {
