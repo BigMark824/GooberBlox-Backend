@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\GameInstances\Models;
+namespace GooberBlox\Platform\GameInstances\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

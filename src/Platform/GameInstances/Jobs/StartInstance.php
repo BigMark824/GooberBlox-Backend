@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\GameInstances\Jobs;
+namespace GooberBlox\Platform\GameInstances\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Cache;
 use Virtubrick\Grid\GridService;
 use Virtubrick\Grid\Rcc\{Job, LuaScript};
 use GooberBlox\Platform\Infrastructure\Models\Server;
-use GooberBlox\GameInstances\InstanceManager;
+use GooberBlox\Platform\GameInstances\InstanceManager;
 
 class StartInstance implements ShouldQueue
 {
