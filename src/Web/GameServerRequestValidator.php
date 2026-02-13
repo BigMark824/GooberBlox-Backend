@@ -41,7 +41,7 @@ class GameServerRequestValidator
         $accessKey = $this->request->header('accessKey');
         if(empty($accessKey))
         {
-            Log::warning('no access key', [$this->request->headers, $ipAddress]);
+            Log::warning(self::buildLoggerMessage('no access key', $this->request, $ipAddress));
             return false;
         }
 
@@ -50,13 +50,13 @@ class GameServerRequestValidator
 
         if(!$isPrimaryAccessKey && !$isAlternateAccessKey)
         {
-            Log::warning("invalid access key\n Access Key: {$accessKey}", [$this->request->headers, $ipAddress]);
+            Log::warning(self::buildLoggerMessage("invalid access key\n Access Key: {$accessKey}", $this->request, $ipAddress));
             return false;
         }
 
         if($isAlternateAccessKey && !$isPrimaryAccessKey)
         {
-            Log::warning("alternate access key in use", [$this->request->headers, $ipAddress]);
+            Log::warning(self::buildLoggerMessage('alternate access key in use', $this->request, $ipAddress));
             return true;
         }  
 
@@ -68,5 +68,13 @@ class GameServerRequestValidator
         return Server::where('primary_ip_address', $ipAddress)
             ->inGroup(ServerGroup::GamesRelay)
             ->exists();
+    }
+
+    private function buildLoggerMessage(string $message, Request $request, string $ipAddress)
+    {
+        $requestUrl = $request->url();
+        $value = "GameServerRequestValidator: {$message}\n\tRequest Url: {$requestUrl}\n\tIP Address: {$ipAddress}";
+
+        return $value;
     }
  }
