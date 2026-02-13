@@ -2,7 +2,7 @@
 
 namespace GooberBlox\Web\Code;
 
-use App\Http\Requests\InsensitiveRequest as Request;
+use GooberBlox\Web\Requests\InsensitiveRequest as Request;
 use GooberBlox\Platform\Infrastructure\Enums\ServerGroup;
 use GooberBlox\Platform\Infrastructure\Enums\ServerType;
 use Illuminate\Support\Facades\Log;
