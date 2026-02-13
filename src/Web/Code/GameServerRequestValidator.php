@@ -3,10 +3,9 @@
 namespace GooberBlox\Web\Code;
 
 use App\Http\Requests\InsensitiveRequest as Request;
+use GooberBlox\Platform\Infrastructure\Enums\ServerGroup;
 use GooberBlox\Platform\Infrastructure\Enums\ServerType;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Str;
 
 use GooberBlox\Platform\Infrastructure\Models\Server;
 class GameServerRequestValidator
@@ -30,23 +29,12 @@ class GameServerRequestValidator
        $ipAddress = $this->request->ip();
 
        $isValid = 
-            $this->verifyIpAddress($ipAddress) &&
+            $this->IsGamesRelayIpAddress($ipAddress) &&
             $this->verifyAccessKey($ipAddress);
 
         $this->request->attributes->set('ValidatedGameServerRequest', $isValid);
 
         return $isValid;
-    }
-
-    private function verifyIpAddress(string $ipAddress) : bool
-    {
-        if(!config('gooberblox.common.Default.VerifyBothGameServerIpAndAccessKey') || $this->verifyIpAccess($ipAddress))
-        {
-            return true;
-        }
-
-        Log::warning('ip address not allowed', [$this->request->headers, $ipAddress]);
-        return false;
     }
 
     private function verifyAccessKey(string $ipAddress): bool
@@ -76,16 +64,10 @@ class GameServerRequestValidator
         return true;
     }
     
-    // TODO: move this to base class ServerValidator
-    private function verifyIpAccess(string $ipAddress) : bool
+    private function IsGamesRelayIpAddress(string $ipAddress) : bool
     {
-        $server = Server::where('primary_ip_address', $ipAddress)
-                            ->where('server_type_id', ServerType::GameServer)
-                            ->first();
-        
-        if(!$server)
-            return false;
-
-        return true;
+        return Server::where('primary_ip_address', $ipAddress)
+            ->inGroup(ServerGroup::GamesRelay)
+            ->exists();
     }
  }

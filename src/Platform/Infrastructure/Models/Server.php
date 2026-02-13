@@ -2,9 +2,11 @@
 
 namespace GooberBlox\Platform\Infrastructure\Models;
 
-use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use GooberBlox\Platform\Infrastructure\Enums\ServerGroup as ServerGroupEnum;
+
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class Server extends Model
 {
     use Cachable;
@@ -32,6 +34,13 @@ class Server extends Model
         return $this->belongsTo(ServerFarm::class);
     }
 
+    public function scopeInGroup(Builder $query, ServerGroupEnum $group): Builder
+    {
+        return $query->whereHas('groups', function ($q) use ($group) {
+            $q->where('server_group', $group->value);
+        });
+    }
+    
     public function isBleedOff(): bool
     {
         $bleedOffGroups = [
