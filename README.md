@@ -1,4 +1,4 @@
-# GooberBlox Backend
+# GooberBlox Library
 
 A fast laravel library for usage on Roblox Private Servers.
 
