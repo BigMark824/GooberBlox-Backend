@@ -2,7 +2,7 @@
 
 namespace GooberBlox\Web;
 
-use App\Http\Requests\InsensitiveRequest as Request;
+use Illuminate\Http\Request;
 use GooberBlox\Platform\Infrastructure\Enums\ServerGroup;
 use Illuminate\Support\Facades\Log;
 
@@ -28,7 +28,7 @@ class GameServerRequestValidator
        $ipAddress = $this->request->ip();
 
        $isValid = 
-            $this->IsGamesRelayIpAddress($ipAddress) &&
+            $this->isGamesRelayIpAddress($ipAddress) &&
             $this->verifyAccessKey($ipAddress);
 
         $this->request->attributes->set('ValidatedGameServerRequest', $isValid);
@@ -63,7 +63,7 @@ class GameServerRequestValidator
         return true;
     }
     
-    private function IsGamesRelayIpAddress(string $ipAddress) : bool
+    public function isGamesRelayIpAddress(string $ipAddress) : bool
     {
         return Server::where('primary_ip_address', $ipAddress)
             ->inGroup(ServerGroup::GamesRelay)
