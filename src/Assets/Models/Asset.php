@@ -4,7 +4,6 @@ namespace GooberBlox\Assets\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 use GooberBlox\Assets\Places\Models\PlaceAttribute;
 use GooberBlox\Platform\Universes\Models\Universe;
@@ -12,6 +11,8 @@ use GooberBlox\Platform\Membership\Models\User;
 
 use GooberBlox\Assets\Exceptions\UnknownAssetException;
 use GooberBlox\Assets\Enums\AssetType;
+
+use GooberBlox\Web\SEO\NameConverter;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class Asset extends Model
@@ -31,6 +32,22 @@ class Asset extends Model
         'is_archived'
     ];
 
+    public static function getSEOUrl(Asset $asset) : string
+    {
+        if($asset == null)
+        {
+            return "";
+        }
+
+        (string)$name = NameConverter::convertToSEO($asset->name);
+
+        if($asset->asset_type_id == AssetType::Place)
+        {
+            return "/games/{$asset->id}/{$name}";
+        }
+
+        return "/catalog/{$asset->id}/{$name}";
+    }
     public function getAssetHash(int $assetId)
     {
         $asset = $this->getAsset($assetId);
