@@ -2,6 +2,7 @@
 
 namespace GooberBlox\Platform\GameInstances\Models;
 
+use GooberBlox\Assets\Models\Asset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
@@ -23,6 +24,11 @@ class GameInstance extends Model
         'server_id',
         'matchmaking_context_id',
     ];
+
+    public function place()
+    {
+        return $this->belongsTo(Asset::class, 'place_id');
+    }
 
     public static function getInstance(string $jobId)
     { 

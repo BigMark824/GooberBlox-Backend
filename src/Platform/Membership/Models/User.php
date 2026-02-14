@@ -2,6 +2,7 @@
 
 namespace GooberBlox\Platform\Membership\Models;
 
+use GooberBlox\Platform\Assets\Place;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
@@ -35,5 +36,22 @@ class User extends Model
             'agent_type',
             'agent_target_id'
         );
+    }
+
+    public function canShutdownGameInstances(self $user, Place $place /* AssetPermissionVerifier $assetPermissionsVerifier */) : bool
+    {
+        // TODO: Finish
+
+        //$place->verifyIsNotNull();
+
+        if($user == null)
+            return false;
+
+        if($user->isModerator())
+            return true;
+
+        // return $assetPermissionsVerifier->canManage($user, $place);
+
+        return false; // TODO: Finish
     }
 }
