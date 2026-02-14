@@ -8,11 +8,12 @@ use Virtubrick\Grid\GridService;
 use Virtubrick\Grid\Rcc\Job;
 // This class is inaccurate as Roblox.Games.Client is NOT public.
 class GamesAuthority {
-    public function close(int $placeId, string $gameId, int $closeGameReasonType, MatchmakingContext $matchmakingContext)
+    public function close(int $placeId, string $gameId, int $closeGameReasonType, MatchmakingContext $matchmakingContext): void
     {
         try {
             $gameInstance = GameInstance::where('place_id', $placeId)
                                     ->where('id', $gameId)
+                                    ->where('matchmaking_context_id', $matchmakingContext->id)
                                     ->first();
 
             $job = new Job($gameId);
