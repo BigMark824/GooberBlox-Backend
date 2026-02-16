@@ -2,10 +2,11 @@
 
 namespace GooberBlox\Platform\Groups\Models;
 
+use GooberBlox\Platform\Groups\Exceptions\UnknownGroupException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-use GooberBlox\Membership\Models\User;
+use GooberBlox\Platform\Membership\Models\User;
 
 use GooberBlox\Agent\Models\Agent;
 use GooberBlox\Groups\Models\GroupActionType;
@@ -62,5 +63,14 @@ class Group extends Model
             'agent_type',
             'agent_target_id'
         );
+    }
+
+    public static function checkedGetById(int $groupId)
+    {
+        $group = self::find($groupId)->first();
+        if(!$group)
+            throw new UnknownGroupException();
+
+        return $group;
     }
 }
