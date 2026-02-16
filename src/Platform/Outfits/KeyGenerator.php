@@ -2,13 +2,13 @@
 
 namespace GooberBlox\Platform\Outfits;
 
-use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Enums\AssetType;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 
 use GooberBlox\Platform\Outfits\KeyGeneratorInput;
-use GooberBlox\Assets\Models\AssetHash;
-use GooberBlox\Assets\Enums\CreatorType;
+use GooberBlox\Platform\Assets\Models\AssetHash;
+use GooberBlox\Platform\Assets\Enums\CreatorType;
 class KeyGenerator
 {
     // For more information see Roblox.Platform.Outfits.KeyGenerator

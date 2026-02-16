@@ -2,10 +2,10 @@
 
 namespace GooberBlox\Platform\GamePersistence;
 
-use GooberBlox\Assets\Exceptions\UnknownAssetException;
+use GooberBlox\Platform\Assets\Exceptions\UnknownAssetException;
 use GooberBlox\Universes\Exceptions\UnknownUniverseException;
 use GooberBlox\Platform\GamePersistence\Models\DataPersistence;
-use GooberBlox\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Models\Asset;
 
 class Persistence {
     public static function getBlob(?int $agentId, ?int $placeId): ?DataPersistence

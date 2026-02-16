@@ -2,7 +2,7 @@
 
 namespace GooberBlox\Platform\GameInstances\Models;
 
-use GooberBlox\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Models\Asset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 

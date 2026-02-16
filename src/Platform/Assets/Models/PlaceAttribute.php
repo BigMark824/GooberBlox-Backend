@@ -1,11 +1,11 @@
 <?php
 
-namespace GooberBlox\Assets\Places\Models;
+namespace GooberBlox\Platform\Assets\Places\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use GooberBlox\Assets\Models\Asset;
-use GooberBlox\Assets\Exceptions\UnknownAssetException;
+use GooberBlox\Platform\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Exceptions\UnknownAssetException;
 class PlaceAttribute extends Model
 {
     protected $originalUniverseID;

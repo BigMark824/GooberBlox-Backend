@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Assets\Places\Models;
+namespace GooberBlox\Platform\Assets\Places\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;

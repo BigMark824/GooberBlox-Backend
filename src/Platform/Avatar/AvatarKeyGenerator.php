@@ -2,7 +2,7 @@
 
 namespace GooberBlox\Platform\Avatar;
 
-use GooberBlox\Assets\Models\AssetHash;
+use GooberBlox\Platform\Assets\Models\AssetHash;
 use GooberBlox\Outfits\Models\BodyColorSet;
 
 use GooberBlox\Platform\Core\Exceptions\PlatformDataIntegrityException;

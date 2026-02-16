@@ -1,9 +1,9 @@
 <?php
 
-namespace GooberBlox\Assets\Models;
+namespace GooberBlox\Platform\Assets\Models;
 
-use GooberBlox\Assets\Enums\AssetType;
-use GooberBlox\Assets\Enums\CreatorType;
+use GooberBlox\Platform\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Enums\CreatorType;
 use Illuminate\Database\Eloquent\Model;
 
 use GooberBlox\Services\FilesManager;

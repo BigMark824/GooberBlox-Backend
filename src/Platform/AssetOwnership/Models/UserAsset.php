@@ -4,8 +4,8 @@ namespace GooberBlox\Platform\AssetOwnership\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use GooberBlox\Assets\Models\Asset;
-use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Enums\AssetType;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class UserAsset extends Model

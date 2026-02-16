@@ -2,10 +2,10 @@
 
 namespace GooberBlox\Platform\Assets;
 
-use GooberBlox\Assets\Models\Asset;
-use GooberBlox\Assets\Exceptions\UnknownAssetException;
-use GooberBlox\Assets\Enums\AssetType;
-use GooberBlox\Assets\Places\Models\PlaceAttribute;
+use GooberBlox\Platform\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Exceptions\UnknownAssetException;
+use GooberBlox\Platform\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Places\Models\PlaceAttribute;
 use GooberBlox\Platform\Universes\Models\Universe;
 
 class Place {

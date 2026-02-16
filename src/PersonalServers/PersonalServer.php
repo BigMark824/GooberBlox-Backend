@@ -2,12 +2,12 @@
 
 namespace GooberBlox\PersonalServers;
 
-use GooberBlox\Assets\Models\AssetVersion;
+use GooberBlox\Platform\Assets\Models\AssetVersion;
 use GooberBlox\PersonalServers\Exceptions\{InvalidPersonalServerRoleException, PersonalServerUpdateException, UnknownPersonalServerException};
 
-use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Enums\AssetType;
 use GooberBlox\Platform\Assets\Place;
-use GooberBlox\Assets\Models\AssetHash;
+use GooberBlox\Platform\Assets\Models\AssetHash;
 
 use GooberBlox\PersonalServers\Models\PersonalServerRoleset;
 use GooberBlox\PersonalServers\Enums\PersonalServerRoles;

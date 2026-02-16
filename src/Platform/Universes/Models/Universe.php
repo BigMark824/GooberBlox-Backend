@@ -3,7 +3,7 @@
 namespace GooberBlox\Platform\Universes\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use GooberBlox\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Models\Asset;
 use GooberBlox\Platform\Assets\Place;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;

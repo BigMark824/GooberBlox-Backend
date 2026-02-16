@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Assets\Models;
+namespace GooberBlox\Platform\Assets\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

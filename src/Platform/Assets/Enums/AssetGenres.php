@@ -1,5 +1,5 @@
 <?php
-namespace GooberBlox\Assets\Enums;
+namespace GooberBlox\Platform\Assets\Enums;
 
 enum AssetGenres
 {

@@ -2,7 +2,7 @@
 
 namespace GooberBlox\Platform\AssetMedia;
 
-use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Enums\AssetType;
 class AssetMediaManager
 {
     public static function addAssetMedia(int $assetId, int $uploadedMediaAssetId, $uploaderUserId, ?AssetType $assetType = null) : AssetMediaItem

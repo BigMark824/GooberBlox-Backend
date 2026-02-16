@@ -1,16 +1,16 @@
 <?php
 
-namespace GooberBlox\Assets\Models;
+namespace GooberBlox\Platform\Assets\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
 
-use GooberBlox\Assets\Places\Models\PlaceAttribute;
+use GooberBlox\Platform\Assets\Places\Models\PlaceAttribute;
 use GooberBlox\Platform\Universes\Models\Universe;
 use GooberBlox\Platform\Membership\Models\User;
 
-use GooberBlox\Assets\Exceptions\UnknownAssetException;
-use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Exceptions\UnknownAssetException;
+use GooberBlox\Platform\Assets\Enums\AssetType;
 
 use GooberBlox\Web\SEO\NameConverter;
 

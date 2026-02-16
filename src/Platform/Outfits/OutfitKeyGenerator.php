@@ -6,8 +6,8 @@ use GooberBlox\Outfits\Models\BodyColorSet;
 
 use GooberBlox\Platform\Outfits\KeyGeneratorInput;
 use GooberBlox\Platform\Outfits\KeyGenerator;
-use GooberBlox\Assets\Models\Asset;
-use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Models\Asset;
+use GooberBlox\Platform\Assets\Enums\AssetType;
 class OutfitKeyGenerator extends KeyGenerator
 {
     private static function computeKey(array $assetIds, int $bodyColorSetId)

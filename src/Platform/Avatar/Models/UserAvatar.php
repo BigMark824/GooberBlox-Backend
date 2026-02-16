@@ -4,7 +4,7 @@ namespace GooberBlox\Platform\Avatar\Models;
 
 use GooberBlox\Platform\Avatar\Models\Accoutrement;
 use GooberBlox\Platform\Avatar\WornAsset;
-use GooberBlox\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Enums\AssetType;
 
 use Illuminate\Database\Eloquent\Model;
 

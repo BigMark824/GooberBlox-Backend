@@ -2,8 +2,8 @@
 
 namespace GooberBlox\Platform\AssetMedia;
 
-use GooberBlox\Assets\Enums\AssetType;
-use GooberBlox\Assets\Places\Models\PlaceAttribute;
+use GooberBlox\Platform\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Places\Models\PlaceAttribute;
 use Illuminate\Support\Collection;
 class PlaceMediaManager
 {

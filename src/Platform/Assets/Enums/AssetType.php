@@ -1,5 +1,5 @@
 <?php
-namespace GooberBlox\Assets\Enums;
+namespace GooberBlox\Platform\Assets\Enums;
 /*
     some are missing (couldnt find documented anywhere online and i cant even find in the 2019 src (im blind))
     missing ones: 14,15,20,23,36
