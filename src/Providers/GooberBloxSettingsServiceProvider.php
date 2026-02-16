@@ -9,7 +9,7 @@ class GooberBloxSettingsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../AssetMedia/Properties/settings.php',
+            __DIR__ . '/../Platform/AssetMedia/Properties/settings.php',
             'gooberblox.assetmedia'
         );
         $this->mergeConfigFrom(
@@ -36,7 +36,7 @@ class GooberBloxSettingsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../AssetMedia/Properties/settings.php' => config_path('gooberblox/assetmedia.php'),
+            __DIR__ . '/../Platform/AssetMedia/Properties/settings.php' => config_path('gooberblox/assetmedia.php'),
             __DIR__ . '/../Users/Properties/settings.php' => config_path('gooberblox/users.php'),
             __DIR__ . '/../Common/Properties/settings.php' => config_path('gooberblox/common.php'),
             __DIR__ . '/../Platform/Universes/Properties/settings.php' => config_path('gooberblox/universes.php'),
