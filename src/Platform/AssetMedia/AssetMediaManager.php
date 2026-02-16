@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\AssetMedia;
+namespace GooberBlox\Platform\AssetMedia;
 
 use GooberBlox\Assets\Enums\AssetType;
 class AssetMediaManager

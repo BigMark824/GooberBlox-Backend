@@ -1,13 +1,13 @@
 <?php
 
-namespace GooberBlox\AssetMedia;
+namespace GooberBlox\Platform\AssetMedia;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AssetMediaItem extends Model
+class PlaceMediaItem extends Model
 {
     protected $fillable = [
-        'asset_id',
+        'place_id',
         'media_asset_id',
         'uploader_user_id',
         'sort_order'
