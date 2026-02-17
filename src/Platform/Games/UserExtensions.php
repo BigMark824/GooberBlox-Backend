@@ -12,10 +12,8 @@ class UserExtensions {
         if(!$user)
             return false;
 
-        /* TODO: implement
         if($user->isModerator())
             return true;
-        */
 
         return $assetPermissionsVerifier->canManage($user, $place->asset);
     }
