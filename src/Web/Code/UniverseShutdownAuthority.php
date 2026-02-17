@@ -1,5 +1,6 @@
 <?php
 
+use GooberBlox\Platform\AssetPermissions\AssetPermissionsVerifier;
 use GooberBlox\Platform\Assets\Place;
 use GooberBlox\Platform\GameInstances\Models\GameInstance;
 use GooberBlox\Platform\Games\Models\MatchmakingContext;
@@ -7,13 +8,15 @@ use GooberBlox\Platform\Games\GamesAuthority;
 use GooberBlox\Platform\Membership\Models\User;
 class UniverseShutdownAuthority {
     private GameInstance $gameInstance;
+    private AssetPermissionsVerifier $assetPermissionsVerifier;
     private Place $place;
     private MatchmakingContext $matchmakingContext;
     private GamesAuthority $gamesAuthority;
 
-    public function __construct(GameInstance $gameInstance, Place $place, MatchmakingContext $matchmakingContext, GamesAuthority $gamesAuthority)
+    public function __construct(GameInstance $gameInstance, AssetPermissionsVerifier $assetPermissionsVerifier, $place, MatchmakingContext $matchmakingContext, GamesAuthority $gamesAuthority)
     {
         $this->gameInstance = $gameInstance ?? throw new InvalidArgumentException("gameInstance");
+        $this->assetPermissionsVerifier = $assetPermissionsVerifier ?? throw new InvalidArgumentException("assetPermissionsVerifier");
         $this->place = $place ?? throw new InvalidArgumentException("place");
         $this->matchmakingContext = $matchmakingContext ?? throw new InvalidArgumentException("matchmakingContext");
         $this->gamesAuthority = $gamesAuthority ?? throw new InvalidArgumentException("gamesAuthority");
@@ -34,7 +37,7 @@ class UniverseShutdownAuthority {
                 {
                     if (!isset($checkedPlaceIds[$instance->place_id])) {
                         $place = new Place($instance->place_id);
-                        if(!$authenticatedUser->canShutdownGameInstance($authenticatedUser, $place /*, AssetPermissionVerifier $assetPermissionsVerifier */))
+                        if(!$authenticatedUser->canShutdownGameInstance($place, $this->assetPermissionsVerifier))
                         {
                             throw new \Exception("Failure to shut down one of the places for a universe.  placeId={$place->id} universeId={$universeId}");
                         }

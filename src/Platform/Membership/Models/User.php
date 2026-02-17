@@ -2,7 +2,10 @@
 
 namespace GooberBlox\Platform\Membership\Models;
 
+use GooberBlox\Platform\AssetPermissions\AssetPermissionsVerifier;
 use GooberBlox\Platform\Assets\Place;
+use GooberBlox\Platform\Games\UserExtension;
+use GooberBlox\Platform\Games\UserExtensions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
@@ -38,20 +41,7 @@ class User extends Model
         );
     }
 
-    public function canShutdownGameInstances(self $user, Place $place /* AssetPermissionVerifier $assetPermissionsVerifier */) : bool
-    {
-        // TODO: Finish
-
-        //$place->verifyIsNotNull();
-
-        if($user == null)
-            return false;
-
-        if($user->isModerator())
-            return true;
-
-        // return $assetPermissionsVerifier->canManage($user, $place);
-
-        return false; // TODO: Finish
+    public function canShutdownGameInstance(Place $place, AssetPermissionsVerifier $assetPermissionsVerifier) {
+        return UserExtensions::canShutdownGameInstances($this, $place, $assetPermissionsVerifier);
     }
 }
