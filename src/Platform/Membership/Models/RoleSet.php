@@ -27,7 +27,7 @@ class RoleSet extends Model
     }
 
     protected const CACHE_KEY = 'rolesets_all';
-    protected const CACHE_TTL = Carbon::now()->addDays(7); 
+    protected const CACHE_TTL = 604800; // 7 daysss
     protected static function allRoles()
     {
         return Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
