@@ -4,8 +4,9 @@ namespace GooberBlox\Platform\AssetPermissions;
 
 use Exception;
 use GooberBlox\Platform\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Models\AssetOption;
 use GooberBlox\Platform\Assets\Place;
-use GooberBlox\Platform\Groups\Models\Group;
+use GooberBlox\Platform\Universes\UniversePermissionsVerifier;
 use GooberBlox\Platform\Groups\GroupMembership;
 use GooberBlox\Platform\Membership\Models\User;
 use GooberBlox\Platform\Universes\Models\Universe;
@@ -19,7 +20,7 @@ class AssetPermissionsVerifier {
     private const UNIVERSE_RESOURCE_TYPE = 'Universe';
     private const ADMIN_ACTION = 'Admin';
 
-    public function __construct(GroupMembership $group, Universe $universe, UniversePermissionsVerifier $universePermissionsVerifier)
+    public function __construct(GroupMembership $groupMembership, Universe $universe, UniversePermissionsVerifier $universePermissionsVerifier)
     {
         $this->groupMembership = $groupMembership ?? throw new InvalidArgumentException("groupMembership");
         $this->universe = $universe ?? throw new InvalidArgumentException("universe");
@@ -37,10 +38,10 @@ class AssetPermissionsVerifier {
         return match($asset->creator_type) {
             'User' => $asset->creator_target?->id === $user->id,
             'Group' => (fn() => 
-                        GroupMembership::checkedGet(
+                        $this->groupMembership->checkedGet(
                             $asset->creator_target?->id,
                             $user->id
-                        )->isOwner())(),
+                        )->roleSet->isOwner())(),
             default => false,
         };
     }
@@ -64,10 +65,10 @@ class AssetPermissionsVerifier {
         return match($asset->creator_type) {
             'User' => $asset->creator_target?->id === $user->id,
             'Group' => (fn() => 
-                        GroupMembership::checkedGet(
+                        $this->groupMembership->checkedGet(
                             $asset->creator_target?->id,
                             $user->id
-                        )->isOwner())(),
+                        )->roleSet->isOwner())(),
             default => false,
         };
     }
@@ -169,6 +170,6 @@ class AssetPermissionsVerifier {
 
     private function isCopyLocked(Place $place) : bool
     {
-        return AssetOption::getOrCreate($place->id)->isCopyLocked;
+        return AssetOption::getOrCreate($place->asset->id)->is_copy_locked;
     }
 }

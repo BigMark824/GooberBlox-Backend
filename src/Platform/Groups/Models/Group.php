@@ -2,6 +2,7 @@
 
 namespace GooberBlox\Platform\Groups\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use GooberBlox\Platform\Groups\Exceptions\UnknownGroupException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -13,6 +14,8 @@ use GooberBlox\Groups\Models\GroupActionType;
 use GooberBlox\Platform\Groups\{GroupManagement, InitiatorUserJson};
 class Group extends Model
 {
+    use Cachable;
+
     protected $_robloxUserId = config('gooberblox.users.Default.RobloxUserId');
     protected $fillable = [
         'name',
@@ -27,6 +30,10 @@ class Group extends Model
         'is_locked'
     ];
 
+    public function isLocked() : bool
+    {
+        return $this->is_locked ?? false;
+    }
     public function unlock(Group $group, User $user): void
     {
         if($group != null)
