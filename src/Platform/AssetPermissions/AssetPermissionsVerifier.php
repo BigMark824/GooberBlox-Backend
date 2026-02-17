@@ -6,24 +6,23 @@ use Exception;
 use GooberBlox\Platform\Assets\Enums\AssetType;
 use GooberBlox\Platform\Assets\Models\AssetOption;
 use GooberBlox\Platform\Assets\Place;
+use GooberBlox\Platform\Groups\Enums\GroupRoleSetPermissionType;
 use GooberBlox\Platform\Universes\UniversePermissionsVerifier;
-use GooberBlox\Platform\Groups\GroupMembership;
+use GooberBlox\Platform\Groups\GroupMembershipFactory;
 use GooberBlox\Platform\Membership\Models\User;
 use GooberBlox\Platform\Universes\Models\Universe;
 use InvalidArgumentException;
 use Log;
 
 class AssetPermissionsVerifier {
-    private readonly GroupMembership $groupMembership;
-    private readonly Universe $universe;
+    private readonly GroupMembershipFactory $groupMembershipFactory;
     private readonly UniversePermissionsVerifier $universePermissionsVerifier;
     private const UNIVERSE_RESOURCE_TYPE = 'Universe';
     private const ADMIN_ACTION = 'Admin';
 
-    public function __construct(GroupMembership $groupMembership, Universe $universe, UniversePermissionsVerifier $universePermissionsVerifier)
+    public function __construct(GroupMembershipFactory $groupMembershipFactory, UniversePermissionsVerifier $universePermissionsVerifier)
     {
-        $this->groupMembership = $groupMembership ?? throw new InvalidArgumentException("groupMembership");
-        $this->universe = $universe ?? throw new InvalidArgumentException("universe");
+        $this->groupMembershipFactory = $groupMembershipFactory ?? throw new InvalidArgumentException("groupMembershipFactory");
         $this->universePermissionsVerifier = $universePermissionsVerifier ?? throw new InvalidArgumentException("universePermissionsVerifier");
     }
 
@@ -36,12 +35,11 @@ class AssetPermissionsVerifier {
             throw new InvalidArgumentException("asset");      
         
         return match($asset->creator_type) {
-            'User' => $asset->creator_target?->id === $user->id,
-            'Group' => (fn() => 
-                        $this->groupMembership->checkedGet(
-                            $asset->creator_target?->id,
+            'User'  => $asset->creator_target_id === $user->id,
+            'Group' => $this->groupMembershipFactory->checkedGet(
+                            $asset->creator_target_id,
                             $user->id
-                        )->roleSet->isOwner())(),
+                    )->roleSet->isOwner(),
             default => false,
         };
     }
@@ -63,12 +61,11 @@ class AssetPermissionsVerifier {
         }
 
         return match($asset->creator_type) {
-            'User' => $asset->creator_target?->id === $user->id,
-            'Group' => (fn() => 
-                        $this->groupMembership->checkedGet(
-                            $asset->creator_target?->id,
-                            $user->id
-                        )->roleSet->isOwner())(),
+            'User' => $asset->creator_target_id === $user->id,
+            'Group' => $this->groupMembershipFactory
+                            ->checkedGet($asset->creator_target_id, $user->id)
+                            ->roleSet
+                            ->hasPermission(GroupRoleSetPermissionType::CanManageGroupGames),
             default => false,
         };
     }

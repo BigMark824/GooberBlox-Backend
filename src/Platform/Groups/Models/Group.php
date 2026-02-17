@@ -16,7 +16,12 @@ class Group extends Model
 {
     use Cachable;
 
-    protected $_robloxUserId = config('gooberblox.users.Default.RobloxUserId');
+    protected $_robloxUserId;
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->_robloxUserId = config('gooberblox.users.Default.RobloxUserId');
+    }
     protected $fillable = [
         'name',
         'agent_id',

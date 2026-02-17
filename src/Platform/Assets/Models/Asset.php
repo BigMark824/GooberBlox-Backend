@@ -3,6 +3,9 @@
 namespace GooberBlox\Platform\Assets\Models;
 
 
+use GooberBlox\Agent\Enums\AgentType;
+use GooberBlox\Agent\Models\Agent;
+use GooberBlox\Platform\Groups\Models\Group;
 use Illuminate\Database\Eloquent\Model;
 
 use GooberBlox\Platform\Assets\Places\Models\PlaceAttribute;
@@ -106,8 +109,29 @@ class Asset extends Model
         return $this->belongsTo(AssetVersion::class, 'current_version_id');
     }
 
+    public function creatorAgent()
+    {
+        return $this->hasOne(Agent::class, 'agent_target_id', 'creator_id');
+    }
+
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_id');
+        return $this->creatorAgent?->target;
     }
+    public function getCreatorTypeAttribute(): ?string
+    {
+        if (!$this->creatorAgent) return null;
+
+        return match($this->creatorAgent->agent_type) {
+            User::class => 'User',
+            Group::class => 'Group',
+            default => null,
+        };
+    }
+
+    public function getCreatorTargetIdAttribute(): ?int
+    {
+        return $this->creatorAgent?->agent_target_id;
+    }
+
 }

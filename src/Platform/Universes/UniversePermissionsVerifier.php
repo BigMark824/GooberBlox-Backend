@@ -5,17 +5,17 @@ namespace GooberBlox\Platform\Universes;
 use GooberBlox\Platform\Core\Enums\CreatorType;
 use GooberBlox\Platform\Core\Exceptions\PlatformArgumentException;
 use GooberBlox\Platform\Groups\Enums\GroupRoleSetPermissionType;
-use GooberBlox\Platform\Groups\GroupMembership;
+use GooberBlox\Platform\Groups\GroupMembershipFactory;
 use GooberBlox\Platform\Universes\Models\Universe;
 use GooberBlox\Platform\Membership\Models\User;
 use InvalidArgumentException;
 
 class UniversePermissionsVerifier {
-    private readonly GroupMembership $groupMembership;
+    private readonly GroupMembershipFactory $groupMembership;
 
-    public function __construct(GroupMembership $groupMembershipFactory)
+    public function __construct(GroupMembershipFactory $groupMembershipFactory)
     {
-        $this->groupMembership = $groupMembership ?? throw new InvalidArgumentException("groupMembership");
+        $this->groupMembershipFactory = $groupMembershipFactory ?? throw new InvalidArgumentException("groupMembershipFactory");
     }
 
     public function canUserManageUniverse(User $user, Universe $universe) : bool
