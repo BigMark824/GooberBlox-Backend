@@ -42,4 +42,11 @@ class GameInstance extends Model
     {
         return $this->belongsTo(MatchmakingContext::class, 'matchmaking_context_id');
     }
+
+    public static function getGame(int $placeId, string $gameInstanceId): ?GameInstance
+    {
+        return self::where('place_id', $placeId)
+                    ->where('id', $gameInstanceId)
+                    ->first();
+    }
 }
