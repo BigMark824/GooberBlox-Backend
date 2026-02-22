@@ -2,6 +2,8 @@
 
 namespace GooberBlox\Platform\Membership\Models;
 
+use GooberBlox\Account\Models\AccountStatus;
+use GooberBlox\Membership\Enums\AccountStatusEnum;
 use GooberBlox\Platform\AssetPermissions\AssetPermissionsVerifier;
 use GooberBlox\Platform\Assets\Place;
 use GooberBlox\Platform\Games\UserExtension;
@@ -44,6 +46,33 @@ class User extends Model
     public function hasRole(string $roleName): bool
     {
         return $this->account && $this->account->roleSets->contains('name', $roleName);
+    }
+
+    public function accountStatus(): AccountStatus
+    {
+        return $this->account->accountStatus;
+    }
+
+    public function canShutdownGameInstance(Place $place, AssetPermissionsVerifier $assetPermissionsVerifier) {
+        return UserExtensions::canShutdownGameInstances($this, $place, $assetPermissionsVerifier);
+    }
+    public function isTemporarilyBanned() : bool
+    {
+        return $this->accountStatus()?->value == AccountStatusEnum::SUPPRESSED;
+    }
+
+    public function isBanned() : bool
+    {
+        return $this->isPermanentlyBanned();
+    }
+
+    public function isPermanentlyBanned() : bool
+    {
+        if(!$this->accountStatus()?->value == AccountStatusEnum::DELETED)
+        {
+            return $this->accountStatus()?->value == AccountStatusEnum::POISONED;
+        }
+        return true;
     }
 
     public function isMember(): bool { return $this->hasRole('Member'); }
@@ -93,8 +122,4 @@ class User extends Model
     public function isCatalogItemCreator(): bool { return $this->hasRole('CatalogItemCreator'); }
     public function isCLBGameDeveloper(): bool { return $this->hasRole('CLBGameDeveloper'); }
     public function isModerationImpersonator(): bool { return $this->hasRole('ModerationImpersonator'); }
-
-    public function canShutdownGameInstance(Place $place, AssetPermissionsVerifier $assetPermissionsVerifier) {
-        return UserExtensions::canShutdownGameInstances($this, $place, $assetPermissionsVerifier);
-    }
 }

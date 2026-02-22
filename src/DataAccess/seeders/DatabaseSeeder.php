@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     $this->call([
         MatchmakingContextSeeder::class,
         RoleSetSeeder::class,
+        DurationTypeSeeder::class
     ]);
     }
 }

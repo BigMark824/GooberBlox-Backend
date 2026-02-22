@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_assets', function (Blueprint $table) {
+        Schema::create('duration_types', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('asset_id');
-            $table->integer('asset_type_id');
-            $table->bigInteger('user_id');
+            $table->string('value')->unique();
+            $table->bigInteger('amount')->comment('Tick duration of the DurationType.');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_assets');
+        Schema::dropIfExists('duration_types');
     }
 };
