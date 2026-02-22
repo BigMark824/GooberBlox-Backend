@@ -16,7 +16,7 @@ class GooberBloxServiceProvider extends ServiceProvider
             __DIR__ . '/../DataAccess/Seeders/' => database_path('seeders'),
         ], 'gooberblox-seeders');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../DataAccess/Migrations');
         if ($this->app->runningInConsole()) {
             $this->commands([
                 \GooberBlox\Console\Commands\ImportFeatureFlags::class,
