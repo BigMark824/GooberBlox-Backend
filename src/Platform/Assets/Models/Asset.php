@@ -114,7 +114,7 @@ class Asset extends Model
         return $this->hasOne(Agent::class, 'agent_target_id', 'creator_id');
     }
 
-    public function creator()
+    public function getCreatorAttribute()
     {
         return $this->creatorAgent?->target;
     }
