@@ -48,7 +48,7 @@ class CookieConstraintVerifier {
         }
         $gameServerBypassValues = $request->headers->get('X-EnforceGameServerBypass');
 
-        if ($gameServerBypassValues !== null && str_contains($gameServerBypassValues, config('gooberblox.web.Default.GameServerHeaderBypassValue'))) {
+        if ($gameServerBypassValues !== null && str_contains($gameServerBypassValues, config('gooberblox.web-code.Default.GameServerHeaderBypassValue'))) {
             return true;
         }
 

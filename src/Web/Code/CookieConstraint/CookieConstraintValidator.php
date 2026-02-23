@@ -21,7 +21,7 @@ class CookieConstraintValidator {
     public static function setConstrainedCookie(Response $response, string $host, string $domainSuffix = ''): Response
     {
         $constrainedCookie = config('gooberblox.web-code.Default.CookieConstraintCookieName');
-        $cookieTimeSpan = config('cookieconstraint.Default.CookieConstraintExpiration'); 
+        $cookieTimeSpan = config('gooberblox.web-code.Default.CookieConstraintExpiration'); 
 
         list($days, $time) = explode('.', $cookieTimeSpan);
         list($hours, $minutes, $seconds) = explode(':', $time);
