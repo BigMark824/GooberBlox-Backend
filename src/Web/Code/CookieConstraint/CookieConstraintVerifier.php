@@ -28,7 +28,7 @@ class CookieConstraintVerifier {
             return false;
         }
 
-        if (!in_array($request->ip(), ['127.0.0.1', '::1']) || !$this->hasCookie($request) && $this->isOptionsRequest($request) && !$this->verifyIpBypass($request)) 
+        if ((!in_array($request->ip(), ['127.0.0.1', '::1'])) && (!$this->hasCookie($request)) && (!$this->isOptionsRequest($request)) && (!$this->verifyIpBypass($request))) 
         {
             if(config('gooberblox.web-code.Default.IsGameServerCookieConstraintBypassEnabled'))
             {
