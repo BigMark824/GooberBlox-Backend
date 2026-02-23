@@ -18,7 +18,7 @@ class CookieConstraintVerifier {
 
     public function isVerified(Request $request) : bool
     {
-        if(!config('gooberblox.web-code.Default.CookieConstraintEnabled'))
+        if(!config('gooberblox.web-code.Default.IsCookieConstraintEnabled'))
         {
             return true; 
         }
