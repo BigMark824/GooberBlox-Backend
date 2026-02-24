@@ -2,6 +2,7 @@
 
 namespace GooberBlox\Web\Code\CookieConstraint;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ class CookieConstraintValidator {
         return $request->cookies->has(config('gooberblox.web-code.Default.CookieConstraintCookieName'));
     }
 
-    public static function setConstrainedCookie(Response $response, string $host, string $domainSuffix = ''): Response
+    public static function setConstrainedCookie(Response|RedirectResponse $response, string $host, string $domainSuffix = ''): Response
     {
         $constrainedCookie = config('gooberblox.web-code.Default.CookieConstraintCookieName');
         $cookieTimeSpan = config('gooberblox.web-code.Default.CookieConstraintExpiration'); 

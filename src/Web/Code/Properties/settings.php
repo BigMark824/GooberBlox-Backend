@@ -14,6 +14,8 @@ return [
         "CookieConstraintPassword" => "mouse",
         "CookieConstraint_RedirectURL" => "/Login/FulfillConstraint.aspx",
         "CookieConstrain_RedirectDomain" => "",
-        "GameServerHeaderBypassValue" => "#notmybypass"
+        "GameServerHeaderBypassValue" => "#notmybypass",
+        "CookieConstraintPageCountDownUTCTime" => "1970-01-01",
+        "IsGameServerCookieConstraintBypassEnabled" => true,
     ],
 ];
