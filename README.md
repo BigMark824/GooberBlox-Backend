@@ -3,7 +3,7 @@
 A fast laravel library for usage on Roblox Private Servers.
 
 ## Holds core infrastructure pertaining to:
-- Server infrastrucutre
+- Server infrastructure
 - Core API backends (Accounts, Game joining, Assets)
 - More information about the overall Platform structure can be found in 2019 Roblox Web Assemblies
 
