@@ -2,9 +2,9 @@
 
 namespace GooberBlox\Membership\Enums;
 
-enum GenderType
+enum GenderType: int
 {
-    const Unknown = 1;
-    const Male = 2;
-    const Female = 3;
+    case Unknown = 1;
+    case Male = 2;
+    case Female = 3;
 }
