@@ -50,11 +50,14 @@ class TicketsBalance extends Model
             ->where('id', $this->id)
             ->where('value', '>=', $amount)
             ->update([
-                'value' => DB::raw("value - $amount"),
+                'value' => DB::raw('value - ' . (int) $amount),
             ]);
 
-        $this->refresh();
+        if ($updated > 0) {
+            $this->refresh();
+            return true;
+        }
 
-        return $updated > 0;
+        return false;
     }
 }
