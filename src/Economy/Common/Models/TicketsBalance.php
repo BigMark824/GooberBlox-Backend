@@ -19,6 +19,7 @@ class TicketsBalance extends Model
     {
         return self::firstOrCreate(
             ['user_id' => $userId],
+            ['value' => 0]
         );
     }
 
