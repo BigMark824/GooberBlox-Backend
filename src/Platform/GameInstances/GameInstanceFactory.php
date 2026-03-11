@@ -2,6 +2,7 @@
 
 namespace GooberBlox\Platform\GameInstances;
 
+use GooberBlox\Platform\GameInstances\Data\PlaceSummary;
 use GooberBlox\Platform\GameInstances\Models\GameInstance;
 use Illuminate\Support\Facades\Cache;
 
@@ -66,5 +67,24 @@ class GameInstanceFactory
                         ->get()
                         ->all();
         });
+    }
+    public function getPlaceSummary(int $placeId): PlaceSummary
+    {
+        $key = "game_instances:get_place_summary:place_id:{$placeId}";
+
+        return Cache::remember($key, 3600, function () use ($placeId) {
+            $query = GameInstance::where('place_id', $placeId);
+
+            return new PlaceSummary(
+                id: $placeId,
+                gameCount: $query->count(),
+                playerCount: $query->sum('player_count'),
+            );
+        });
+    }
+
+    public function getPlayerCount(int $placeId): int
+    {
+        return $this->getPlaceSummary($placeId)['player_count'] ?? 0;
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('ping')->nullable();
             $table->integer('port');
             $table->json('player_ids')->nullable()->comment('Collection of all PlayerIds in the Instance.');
+            $table->unsignedInteger('player_count')->default(0)->index();
             $table->smallInteger('capacity')->nullable(0);
             $table->uuid('game_code');
             $table->bigInteger('server_id');

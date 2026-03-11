@@ -21,6 +21,7 @@ class GameInstance extends Model
         'port',
         'ping',
         'player_ids',
+        'player_count', // might as well precompute this
         'capacity',
         'game_code',
         'server_id',
