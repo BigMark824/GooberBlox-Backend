@@ -3,6 +3,7 @@
 namespace GooberBlox\Platform\GameInstances\Models;
 
 use GooberBlox\Platform\Assets\Models\Asset;
+use GooberBlox\Platform\GameInstances\Exceptions\NoAvailablePortException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
@@ -24,7 +25,9 @@ class GameInstance extends Model
         'server_id',
         'matchmaking_context_id',
     ];
-
+    protected $casts = [
+        'player_ids' => 'array',
+    ];
     public function place()
     {
         return $this->belongsTo(Asset::class, 'place_id');
@@ -48,5 +51,27 @@ class GameInstance extends Model
         return self::where('place_id', $placeId)
                     ->where('id', $gameInstanceId)
                     ->first();
+    }
+
+    public function getNextAvailablePort(Server $server): int
+    {
+        $minPort = 53640;
+        $maxPort = 64000;
+
+        $usedPorts = $this->where('server_id', $server->id)
+            ->whereNotNull('port')
+            ->pluck('port')
+            ->toArray();
+
+        $attempts = 0;
+        while ($attempts < 100) {
+            $port = rand($minPort, $maxPort);
+            if (!in_array($port, $usedPorts)) {
+                return $port;
+            }
+            $attempts++;
+        }
+
+        throw new NoAvailablePortException("No available port found on server {$server->name}");
     }
 }
