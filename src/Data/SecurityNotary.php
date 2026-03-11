@@ -15,7 +15,7 @@ class SecurityNotary extends Controller
     }
     public static function createSignature(string $message) : string
     {
-        $privateKeyContents = Storage::disk('local')->get('Keys/PrivateKey.pem');
+        $privateKeyContents = Storage::disk('local')->get('Keys/PrivateKey.pem') ?? env('APP_PRIVATE_KEY');
 
         if (!$privateKeyContents) {
             throw new KeyNotFoundException("Private key not found.");
@@ -38,7 +38,7 @@ class SecurityNotary extends Controller
     
     public static function verifySignature(string $rawTicket, string $base64Signature) : string
     {
-        $publicKeyContents = Storage::disk('local')->get('Keys/PublicKey.pem');
+        $publicKeyContents = Storage::disk('local')->get('Keys/PublicKey.pem') ?? env('APP_PUBLIC_KEY');
 
         if (!$publicKeyContents) {
             throw new KeyNotFoundException("Public key not found.");

@@ -35,7 +35,7 @@ class ClientValidation
         $ticket1 = "$userId\n$userName\n$charApp\n$jobId\n$time";
         $ticket2 = "$userId\n$jobId\n$time";
 
-        $privateKey = Storage::disk('local')->get('Keys/PrivateKey.pem');
+        $privateKey = Storage::disk('local')->get('Keys/PrivateKey.pem') ?? env('APP_PRIVATE_KEY');
         if (!openssl_sign($ticket1, $signature1, $privateKey))
             return "$time;0;0";
         if (!openssl_sign($ticket2, $signature2, $privateKey))
