@@ -59,7 +59,7 @@ class GameInstanceFactory
             if (!empty($gameCodes)) $query->whereIn('game_code', $gameCodes);
 
             if ($matchmakingContextId !== null) $query->where('matchmaking_context_id', $matchmakingContextId);
-
+    
             return $query->orderBy('created_at')
                         ->skip($startRowIndex)
                         ->take($maximumRows)

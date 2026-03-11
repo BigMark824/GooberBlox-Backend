@@ -11,6 +11,7 @@ use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 use GooberBlox\Platform\Games\Models\MatchMakingContext;
 use GooberBlox\Platform\Infrastructure\Models\Server;
+use Str;
 class GameInstance extends Model
 {
     use HasUuids, Cachable;
@@ -32,7 +33,22 @@ class GameInstance extends Model
     {
         return $this->belongsTo(Asset::class, 'place_id');
     }
+    public function createInstance(?string $jobId, int $gamePort, string $gameCode, Server $server): GameInstance
+    {
+        $place = Asset::getPlace($this->placeId);
 
+        $instance = new GameInstance();
+        $instance->id = $jobId ?? Str::uuid();
+        $instance->place_id = $place->id;
+        $instance->capacity = $place->maxPlayers ?? 24;
+        $instance->port = $gamePort;
+        $instance->game_code = $gameCode;
+        $instance->server_id = $server->id;
+        $instance->matchmaking_context_id = MatchmakingContext::getOrCreate('Default')->id;
+        $instance->save();
+
+        return $instance;
+    }
     public static function getInstance(string $jobId)
     { 
         return GameInstance::find($jobId);
@@ -53,12 +69,12 @@ class GameInstance extends Model
                     ->first();
     }
 
-    public function getNextAvailablePort(Server $server): int
+    public static function getNextAvailablePort(Server $server): int
     {
         $minPort = 53640;
         $maxPort = 64000;
 
-        $usedPorts = $this->where('server_id', $server->id)
+        $usedPorts = self::where('server_id', $server->id)
             ->whereNotNull('port')
             ->pluck('port')
             ->toArray();

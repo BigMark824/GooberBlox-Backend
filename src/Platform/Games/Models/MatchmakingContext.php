@@ -2,12 +2,12 @@
 
 namespace GooberBlox\Platform\Games\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class MatchmakingContext extends Model
 {
+    use Cachable;
     protected $fillable = [
         'value',
     ];
