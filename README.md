@@ -1,6 +1,6 @@
 # GooberBlox Library
 
-A fast laravel library for usage on Roblox Private Servers.
+A fast WIP laravel library for usage on Roblox Private Servers.
 
 ## Holds core infrastructure pertaining to:
 - Server infrastructure
