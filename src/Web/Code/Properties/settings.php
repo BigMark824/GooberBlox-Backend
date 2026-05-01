@@ -17,5 +17,7 @@ return [
         "GameServerHeaderBypassValue" => env('COOKIE_CONSTRAINT_SERVER_BYPASS', '#notmybypass'),
         "CookieConstraintPageCountDownUTCTime" => env('COOKIE_CONSTRAINT_COUNTDOWN_UTC', '1970-01-01'),
         "IsGameServerCookieConstraintBypassEnabled" => env('COOKIE_CONSTRAINT_GAME_SERVER_BYPASS_ENABLED', false),
+        "JavascriptBundleSalt" => env('JAVASCRIPT_BUNDLE_SALT', ''),
+        "JsBundleHasErrorDetectionEnabled" => env('JS_BUNDLE_ERROR_DETECTION_ENABLED', false),
     ],
 ];
