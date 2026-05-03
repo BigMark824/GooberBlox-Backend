@@ -25,12 +25,21 @@ class Place {
 
         $this->asset = $asset;
     }
-
+    public static function forCreator(int $creatorId)
+    {
+        return Asset::where('asset_type_id', AssetType::Place->value)
+            ->where('creator_id', $creatorId)
+            ->get()
+            ->map(fn ($asset) => new self($asset->id));
+    }
     public function __get($key)
     {
         return $this->asset->$key ?? null;
     }
-
+    public function __call($method, $args)
+    {
+        return $this->asset->$method(...$args);
+    }
     public function universe(): ?Universe
     {
         return $this->asset->universe;
