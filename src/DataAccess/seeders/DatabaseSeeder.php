@@ -13,10 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-    $this->call([
-        MatchmakingContextSeeder::class,
-        RoleSetSeeder::class,
-        DurationTypeSeeder::class
-    ]);
+        $this->call([
+            MatchmakingContextSeeder::class,
+            RoleSetSeeder::class,
+            DurationTypeSeeder::class,
+            ServerGroupSeeder::class,
+        ]);
     }
 }
