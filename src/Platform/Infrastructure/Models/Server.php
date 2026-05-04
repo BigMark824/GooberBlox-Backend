@@ -29,6 +29,10 @@
             )->withPivot('server_group');
         }
 
+        public function datacenter()
+        {
+            return $this->belongsTo(Datacenter::class);
+        }
         public function serverFarm()
         {
             return $this->belongsTo(ServerFarm::class);
