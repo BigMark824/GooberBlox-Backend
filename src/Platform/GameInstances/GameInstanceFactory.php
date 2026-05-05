@@ -58,6 +58,6 @@ class GameInstanceFactory
 
     public function getPlayerCount(int $placeId): int
     {
-        return $this->getPlaceSummary($placeId)['player_count'] ?? 0;
+        return $this->getPlaceSummary($placeId)->playerCount ?? 0;
     }
 }

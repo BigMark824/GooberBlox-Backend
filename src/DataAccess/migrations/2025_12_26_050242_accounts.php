@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('password');
-            $table->string('name', 20);
+            $table->string('name', 20)->unique();
             $table->text('description')->nullable();
             $table->smallInteger('account_status_id')->nullable();
             $table->rememberToken()->nullable();
