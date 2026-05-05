@@ -34,13 +34,13 @@ class GameInstance extends Model
     {
         return $this->belongsTo(Asset::class, 'place_id');
     }
-    public function createInstance(?string $jobId, int $gamePort, string $gameCode, Server $server): GameInstance
+    public static function createInstance(?string $jobId, int $placeId, int $gamePort, string $gameCode, Server $server): GameInstance
     {
-        $place = Asset::getPlace($this->placeId);
+        $place = Asset::getPlace($placeId);
 
         $instance = new GameInstance();
         $instance->id = $jobId ?? Str::uuid();
-        $instance->place_id = $place->id;
+        $instance->place_id = $place?->id ?? $placeId;
         $instance->capacity = $place->maxPlayers ?? 24;
         $instance->port = $gamePort;
         $instance->game_code = $gameCode;
