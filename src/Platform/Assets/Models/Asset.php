@@ -21,6 +21,7 @@ use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class Asset extends Model
 {
     use Cachable;
+    protected $appends = ['creator'];
     protected $fillable = [
         'id',
         'asset_type_id',
