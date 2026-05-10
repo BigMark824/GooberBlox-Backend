@@ -20,6 +20,7 @@ class Universe extends Model
         'is_archived',
         'creator_type',
         'api_services',
+        'cloudedit_enabled'
     ];
 
     public function assets()

@@ -70,6 +70,14 @@ class Asset extends Model
         return $asset;
     }
 
+    /**
+     * Retrieves a place asset by its ID.
+     *
+     * @param int|null $placeId The ID of the place asset to retrieve. If null, it will attempt to retrieve a default place asset.
+     * @return Asset|null The retrieved place asset, or null if not found.
+     * @throws UnknownAssetException If the specified place asset does not exis
+     * @deprecated Please use the \Assets\Place class.
+     */
     public static function getPlace(?int $placeId = null): ?Asset
     {
             try {

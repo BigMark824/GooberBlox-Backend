@@ -14,18 +14,6 @@ class Agent extends Model
         'agent_type',
         'agent_target_id'
     ];
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::retrieved(function ($agent) {
-            $agent->agent_type = match ($agent->agent_type) {
-                AgentType::User->value => User::class,
-                AgentType::Group->value => Group::class,
-                default => null,
-            };
-        });
-    }
     public function target(): MorphTo
     {
         return $this->morphTo(

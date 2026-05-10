@@ -5,7 +5,7 @@ namespace GooberBlox\PersonalServers;
 use GooberBlox\Platform\Assets\Models\AssetVersion;
 use GooberBlox\PersonalServers\Exceptions\{InvalidPersonalServerRoleException, PersonalServerUpdateException, UnknownPersonalServerException};
 
-use GooberBlox\Platform\Assets\Enums\AssetType;
+use GooberBlox\Platform\Assets\Enums\{AssetType, CreatorType};
 use GooberBlox\Platform\Assets\Place;
 use GooberBlox\Platform\Assets\Models\AssetHash;
 
@@ -22,11 +22,14 @@ class PersonalServer {
         $assetHash = AssetHash::upload($contents, $place->asset->creator_id, AssetType::Place);
 
         try {
-            // TODO: abstract this
-            $newVersionNumber = $place->asset->currentVersion++;
+            $newVersionNumber = ((int) $place->asset->versions()->max('version_number')) + 1;
             $assetVersion = AssetVersion::create([
                 'asset_id' => $place->asset->id,
-                'version_number' => $newVersionNumber
+                'version_number' => $newVersionNumber,
+                'asset_hash_id' => $assetHash->id,
+                'creator_type' => CreatorType::User,
+                'creator_target_id' => $place->asset->creator_id,
+                'creating_universe_id' => $place->asset->universe_id,
             ]);
 
             $place->asset->asset_hash_id = $assetHash->id;
@@ -35,8 +38,8 @@ class PersonalServer {
             $place->asset->save();
 
 
-        } catch(\Exception $e) {
-            throw new PersonalServerUpdateException($e->getMessage());
+        } catch(\Throwable $e) {
+            throw new PersonalServerUpdateException($e->getMessage(), 0, $e);
         }
     }
 

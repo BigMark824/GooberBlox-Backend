@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("privacy_type");
             $table->smallInteger("creator_type");
             $table->boolean('api_services')->nullable()->comment('Allows for datastores, httpservice and other funny studio things');
+            $table->boolean('cloudedit_enabled')->default(false)->comment('Allows for TeamCreate');
             $table->timestamps();
         });
     }
