@@ -1,6 +1,7 @@
 <?php
 
 namespace GooberBlox\Platform\Groups\Models;
+use DB;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use GooberBlox\Platform\Groups\Exceptions\UnknownGroupException;
@@ -43,12 +44,14 @@ class Group extends Model
     {
         if($group != null)
         {
-            $group->is_locked = false;
-            $group->save();
-            
-            GroupManagement::logGroupAction($this->_robloxUserId, $group->id, GroupActionType::$Unlock->id, 
-                new InitiatorUserJson($user->id)
-            );
+          DB::transaction(function() use ($group, $user) {
+                $group->is_locked = false;
+                $group->save();
+                
+                GroupManagement::logGroupAction($this->_robloxUserId, $group->id, GroupActionType::$Unlock->id, 
+                    new InitiatorUserJson($user->id)
+                );
+            }, 3);
         }
 
     }
@@ -57,12 +60,14 @@ class Group extends Model
     {
         if($group != null)
         {
-            $group->is_locked = true;
-            $group->save();
-            
-            GroupManagement::logGroupAction($this->_robloxUserId, $group->id, GroupActionType::$Lock->id, 
-                new InitiatorUserJson($user->id)
-            );
+            DB::transaction(function() use ($group, $user) {
+                $group->is_locked = true;
+                $group->save();
+                
+                GroupManagement::logGroupAction($this->_robloxUserId, $group->id, GroupActionType::$Lock->id, 
+                    new InitiatorUserJson($user->id)
+                );
+            }, 3);
         }
 
     }

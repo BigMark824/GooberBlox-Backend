@@ -3,6 +3,7 @@
 namespace GooberBlox\Platform\GamePersistence\Datastore\Jobs;
 
 
+use DB;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -43,19 +44,21 @@ class SetAsync implements ShouldQueue
 
     public function handle() : void
     {
-        Datastore::updateOrCreate(
-            [
-                'universe_id' => $this->universeId,
-                'key' => $this->key,
-                'scope' => $this->scope,
-                'target' => $this->target,
-            ],
-            [
-                'type' => $this->type,
-                'value' => $this->value,
-                'datastore_type' => $this->datastoreType,
-            ]
-        );
+        DB::transaction(function () {
+            Datastore::updateOrCreate(
+                [
+                    'universe_id' => $this->universeId,
+                    'key' => $this->key,
+                    'scope' => $this->scope,
+                    'target' => $this->target,
+                ],
+                [
+                    'type' => $this->type,
+                    'value' => $this->value,
+                    'datastore_type' => $this->datastoreType,
+                ]
+            );
+        });
 
         event(new DatastoreEvent(
             $this->job->uuid(),
