@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('host_name');
             $table->string('name');
-            $table->bigInteger('server_farm_id');
+            $table->unsignedBigInteger('server_farm_id');
             $table->integer('server_type_id');
-            $table->integer('datacenter_id');
+            $table->unsignedBigInteger('datacenter_id');
             $table->string('private_ip_address')->default("127.0.0.1");
             $table->string('primary_ip_address')->default("127.0.0.1");
             $table->timestamps();

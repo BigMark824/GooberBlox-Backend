@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('outfit_accoutrements', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('outfit_id');
-            $table->bigInteger('asset_id');
+            $table->foreignId('outfit_id')->constrained('outfits')->cascadeOnDelete();
+            $table->foreignId('asset_id')->constrained('assets')->cascadeOnDelete();
             $table->timestamps();
-
-            $table->foreign('outfit_id')->references('id')->on('outfits');
         });
     }
 

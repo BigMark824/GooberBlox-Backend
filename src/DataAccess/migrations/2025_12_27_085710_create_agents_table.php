@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('agents', function (Blueprint $table) {
             $table->id();
             $table->smallInteger('agent_type');
-            $table->smallInteger('agent_target_id');
+            $table->unsignedBigInteger('agent_target_id');
             $table->timestamps();
+
+            $table->unique(['agent_type', 'agent_target_id']);
         });
     }
 

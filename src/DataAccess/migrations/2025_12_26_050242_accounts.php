@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('name', 20)->unique();
             $table->text('description')->nullable();
-            $table->smallInteger('account_status_id')->nullable();
+            $table->unsignedSmallInteger('account_status_id')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('account');
+        Schema::dropIfExists('accounts');
     }
 };

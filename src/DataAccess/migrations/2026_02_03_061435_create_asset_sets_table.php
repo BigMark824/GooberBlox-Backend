@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->bigInteger('creator_agent_id');
-            $table->bigInteger('image_asset_id')->nullable();
+            $table->foreignId('creator_agent_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('image_asset_id')->nullable()->constrained('assets')->nullOnDelete();
             $table->boolean('is_subscribable');
         });
     }

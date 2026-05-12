@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('personal_server_rolesets', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('place_id');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('place_id')->constrained('assets')->cascadeOnDelete();
             $table->integer('rank');
             $table->timestamps();
+
+            $table->unique(['place_id', 'user_id']);
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('personal_server_ranks');
+        Schema::dropIfExists('personal_server_rolesets');
     }
 };

@@ -13,17 +13,19 @@ return new class extends Migration
     {
         Schema::create('game_instances', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->bigInteger('place_id');
+            $table->foreignId('place_id')->constrained('assets')->cascadeOnDelete();
             $table->double('fps')->nullable();
             $table->integer('ping')->nullable();
             $table->integer('port');
             $table->json('player_ids')->nullable()->comment('Collection of all PlayerIds in the Instance.');
             $table->unsignedInteger('player_count')->default(0)->index();
             $table->smallInteger('capacity')->nullable(0);
-            $table->uuid('game_code');
-            $table->bigInteger('server_id');
-            $table->integer('matchmaking_context_id')->nullable();
+            $table->uuid('game_code')->unique();
+            $table->foreignId('server_id')->constrained('servers')->cascadeOnDelete();
+            $table->unsignedBigInteger('matchmaking_context_id')->nullable();
             $table->timestamps();
+
+            $table->unique(['server_id', 'port']);
         });
     }
 

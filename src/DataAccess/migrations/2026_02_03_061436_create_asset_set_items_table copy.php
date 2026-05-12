@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('asset_set_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->bigInteger('asset_set_id');
-            $table->bigInteger('asset_target_id');
-            $table->bigInteger('asset_version_id')->nullable();
+            $table->foreignId('asset_set_id')->constrained('asset_sets')->cascadeOnDelete();
+            $table->foreignId('asset_target_id')->constrained('assets')->cascadeOnDelete();
+            $table->foreignId('asset_version_id')->nullable()->constrained('asset_versions')->nullOnDelete();
             $table->bigInteger('asset_type_id');
             $table->integer('sortOrder');
+
+            $table->unique(['asset_set_id', 'asset_target_id']);
         });
     }
 

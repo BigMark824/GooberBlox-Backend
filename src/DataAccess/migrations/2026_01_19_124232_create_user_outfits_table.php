@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_outfits', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('outfit_id');
-            $table->bigInteger('user_id');
+            $table->foreignId('outfit_id')->constrained('outfits')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
             $table->boolean('is_editable');
             $table->timestamps();

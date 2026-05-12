@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('account_add_ons', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('account_id');
-            $table->integer('premium_feature_id');
+            $table->foreignId('account_id')->constrained('accounts')->cascadeOnDelete();
+            $table->foreignId('premium_feature_id')->constrained('premium_features')->restrictOnDelete();
             $table->timestamp('renewal');
             $table->timestamp('expiration');
-            $table->bigInteger('robux_stipend_id');
+            $table->unsignedBigInteger('robux_stipend_id');
             $table->timestamp('lease_expiration')->nullable();
             $table->uuid('worker_id')->nullable();
             $table->timestamp('completed');

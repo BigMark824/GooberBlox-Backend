@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('asset_type_id');
-            $table->bigInteger('asset_hash_id')->nullable();
+            $table->unsignedBigInteger('asset_hash_id')->nullable();
             $table->bigInteger('asset_categories')->nullable();
             $table->bigInteger('asset_genres')->nullable();
             $table->string('name', 50);
-            $table->bigInteger('creator_id');
-            $table->bigInteger('current_version_id')->default(1);
-            $table->bigInteger('universe_id')->nullable();
+            $table->unsignedBigInteger('creator_id');
+            $table->unsignedBigInteger('current_version_id')->nullable();
+            $table->unsignedBigInteger('universe_id')->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_archived')->nullable();
             $table->timestamps();
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('asset_hash_id')
                   ->references('id')
                   ->on('asset_hashes')
-                  ->onDelete('cascade');
+                  ->nullOnDelete();
         });
     }
 

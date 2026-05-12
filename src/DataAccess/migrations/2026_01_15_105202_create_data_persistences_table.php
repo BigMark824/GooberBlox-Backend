@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('data_persistence', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->bigInteger('agent_id');
-            $table->string('universe_id');
+            $table->foreignId('agent_id')->constrained('agents')->cascadeOnDelete();
+            $table->foreignId('universe_id')->constrained('universes')->cascadeOnDelete();
             $table->text('blob');
+
+            $table->unique(['universe_id', 'agent_id']);
         });
     }
 

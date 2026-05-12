@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('outfits', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('asset_hash_id');
-            $table->bigInteger('body_color_set_id');
+            $table->foreignId('asset_hash_id')->constrained('asset_hashes')->cascadeOnDelete();
+            $table->foreignId('body_color_set_id')->constrained('body_color_sets')->cascadeOnDelete();
             $table->timestamps();
         });
     }

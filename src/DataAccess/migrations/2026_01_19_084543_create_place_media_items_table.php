@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('place_media_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('place_id');
-            $table->bigInteger('media_asset_id');
-            $table->bigInteger('uploader_user_id');
+            $table->foreignId('place_id')->constrained('assets')->cascadeOnDelete();
+            $table->foreignId('media_asset_id')->constrained('assets')->cascadeOnDelete();
+            $table->foreignId('uploader_user_id')->constrained('users')->cascadeOnDelete();
             $table->integer('sort_order')->nullable();
             $table->timestamps();
         });

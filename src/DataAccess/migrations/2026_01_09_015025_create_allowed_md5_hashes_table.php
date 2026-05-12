@@ -14,13 +14,10 @@ return new class extends Migration
         Schema::create('allowed_md5_hashes', function (Blueprint $table) {
             $table->id();
             $table->string('md5_hash');
-            $table->integer('version_id');
-
-            $table->foreign('version_id')
-                ->references('id')
-                ->on('allowed_security_versions')
-                ->onDelete('cascade');
+            $table->foreignId('version_id')->constrained('allowed_security_versions')->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique(['version_id', 'md5_hash']);
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('allowed_m_d5_hashes');
+        Schema::dropIfExists('allowed_md5_hashes');
     }
 };

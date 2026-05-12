@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_avatars', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('new_avatar_asset_hash_id');
-            $table->bigInteger('body_color_set_id')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('new_avatar_asset_hash_id')->constrained('asset_hashes')->cascadeOnDelete();
+            $table->foreignId('body_color_set_id')->nullable()->constrained('body_color_sets')->nullOnDelete();
             $table->timestamps();
+
+            $table->unique('user_id');
         });
     }
 

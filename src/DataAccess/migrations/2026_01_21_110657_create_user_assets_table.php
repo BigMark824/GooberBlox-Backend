@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_assets', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('asset_id');
+            $table->foreignId('asset_id')->constrained('assets')->cascadeOnDelete();
             $table->integer('asset_type_id');
-            $table->bigInteger('user_id');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
 
-            $table->foreign('asset_id')->references('id')->on('assets');
+            $table->unique(['user_id', 'asset_id']);
         });
     }
 

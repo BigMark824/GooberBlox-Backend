@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('team_create_memberships', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('universe_id');
-            $table->bigInteger('user_id');
+            $table->foreignId('universe_id')->constrained('universes')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique(['universe_id', 'user_id']);
         });
     }
 

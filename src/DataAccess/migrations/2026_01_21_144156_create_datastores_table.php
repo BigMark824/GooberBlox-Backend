@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('datastore_type', ['Production', 'Sandbox']);
             $table->timestamps();
             $table->index(['universe_id', 'key', 'target']);
+            $table->unique(['universe_id', 'datastore_type', 'type', 'scope', 'target', 'key'], 'datastores_identity_unique');
         });
     }
 

@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('place_icons', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('place_id');
-            $table->bigInteger('image_id');
+            $table->foreignId('place_id')->constrained('assets')->cascadeOnDelete();
+            $table->foreignId('image_id')->constrained('assets')->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique('place_id');
         });
     }
 
