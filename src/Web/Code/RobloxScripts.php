@@ -3,6 +3,8 @@
 namespace GooberBlox\Web\Code;
 
 use GooberBlox\Web\Code\StaticBundleUtils;
+
+use Wikimedia\Minify\JavaScriptMinifier; // beautiful library
 class CdnLibrary
 {
     public string $cdnPath;
@@ -35,11 +37,7 @@ class RobloxScripts
     }
     private static function minifyJavascript(string $js): string
     {
-        return preg_replace([
-            '/\/\*.*?\*\//s',
-            '/\/\/.*$/m',
-            '/\s+/'
-        ], ['', '', ' '], $js);
+        return JavaScriptMinifier::minify($js);
     }
     public static function bundle(string $namePrefix, array $files, bool $minifyFiles, string $versionNumber = null): ?string
     {
@@ -53,11 +51,7 @@ class RobloxScripts
                 $bundleFileName .= "_" . $versionNumber;
             }
 
-            if ($minifyFiles) {
-                $bundleFileName .= "_m";
-            }
-
-            $outputFileRelativePath = "js/m/" . $bundleFileName . ".js";
+            $outputFileRelativePath = "js/m/" . $bundleFileName . ($minifyFiles ? ".min.js" : ".js");
             $outputFileAbsolutePath = public_path($outputFileRelativePath);
 
             if (!file_exists($outputFileAbsolutePath)) {
@@ -76,7 +70,17 @@ class RobloxScripts
                         continue;
                     }
 
-                    $content = file_get_contents($absolutePath);
+                    $uncompressedContent = file_get_contents($absolutePath);
+
+                    if ($minifyFiles) {
+                        if (str_ends_with($absolutePath, '.min.js')) {
+                            $content = $uncompressedContent;
+                        } else {
+                            $content = self::minifyJavascript($uncompressedContent);
+                        }
+                    } else {
+                        $content = $uncompressedContent;
+                    }
 
                     $buffer .= "\n";
                     $buffer .= ";// " . str_replace(['~/js/', '/js/'], '', $relativePath) . "\n";
