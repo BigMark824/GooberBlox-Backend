@@ -101,6 +101,45 @@ class RobloxScripts
         }
     }
 
+    public static function pageBundleMap(bool $minifyFiles = true): array
+    {
+        $pagesRoot = public_path('js/compiled/pages');
+
+        if (!is_dir($pagesRoot)) {
+            return [];
+        }
+
+        $bundles = [];
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($pagesRoot, \FilesystemIterator::SKIP_DOTS)
+        );
+
+        foreach ($files as $file) {
+            if (!$file->isFile()) {
+                continue;
+            }
+
+            $absolutePath = $file->getPathname();
+            $relativePath = str_replace('\\', '/', substr($absolutePath, strlen($pagesRoot) + 1));
+
+            if (!str_ends_with($relativePath, '.compiled.js')) {
+                continue;
+            }
+
+            $component = substr($relativePath, 0, -strlen('.compiled.js'));
+            $compiledPath = '/js/compiled/pages/' . $relativePath;
+            $bundle = self::bundle('PageJS', [$compiledPath], $minifyFiles);
+
+            if ($bundle) {
+                $bundles[$component] = $bundle;
+            }
+        }
+
+        ksort($bundles);
+
+        return $bundles;
+    }
+
     function getCdnScripts(): array
     {
         $request = request();
