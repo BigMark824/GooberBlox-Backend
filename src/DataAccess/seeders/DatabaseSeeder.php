@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             RoleSetSeeder::class,
             DurationTypeSeeder::class,
             ServerGroupSeeder::class,
+            FeedTypeSeeder::class,
         ]);
     }
 }
