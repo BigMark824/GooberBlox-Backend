@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Datastore extends Model
 {
     protected $fillable = [
-        'place_id',
+        'universe_id',
         'key',
         'type',
         'scope',
