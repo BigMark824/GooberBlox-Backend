@@ -2,7 +2,7 @@
 
 namespace GooberBlox\Platform\Universes;
 
-use GooberBlox\Platform\Core\Enums\CreatorType;
+use GooberBlox\Platform\Assets\Enums\CreatorType;
 use GooberBlox\Platform\Core\Exceptions\PlatformArgumentException;
 use GooberBlox\Platform\Groups\Enums\GroupRoleSetPermissionType;
 use GooberBlox\Platform\Groups\GroupMembershipFactory;
@@ -11,7 +11,7 @@ use GooberBlox\Platform\Membership\Models\User;
 use InvalidArgumentException;
 
 class UniversePermissionsVerifier {
-    private readonly GroupMembershipFactory $groupMembership;
+    private readonly GroupMembershipFactory $groupMembershipFactory;
 
     public function __construct(GroupMembershipFactory $groupMembershipFactory)
     {
@@ -20,20 +20,27 @@ class UniversePermissionsVerifier {
 
     public function canUserManageUniverse(User $user, Universe $universe) : bool
     {
-        if(!$user)
+        if (! $user) {
             throw new PlatformArgumentException("user");
-
-        if(!$universe)
-            throw new PlatformArgumentException("universe");
-
-        if($universe->creator_type == CreatorType::User)
-        {
-            return $universe->creator_target_id == $user->id;
         }
 
-        if($universe->creator_type == CreatorType::Group)
-        {
-            return $this->groupMembership->checkedGet($universe->creator_target_id, $user->id)->roleSet->hasPermission(GroupRoleSetPermissionType::CanManageGroupGames);
+        if (! $universe) {
+            throw new PlatformArgumentException("universe");
+        }
+
+        $creatorType = $universe->creator_type instanceof CreatorType
+            ? $universe->creator_type
+            : CreatorType::tryFrom((int) $universe->creator_type);
+
+        if ($creatorType === CreatorType::User) {
+            return (int) $universe->creator_target_id === (int) $user->id;
+        }
+
+        if ($creatorType === CreatorType::Group) {
+            return $this->groupMembershipFactory
+                ->checkedGet($universe->creator_target_id, $user->id)
+                ->roleSet
+                ->hasPermission(GroupRoleSetPermissionType::CanManageGroupGames);
         }
 
         return false;

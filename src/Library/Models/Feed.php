@@ -35,7 +35,7 @@ class Feed extends Model
         return $this->belongsToMany(User::class, 'user_feeds');
     }
 
-    public static function createNew(int $userId, int $itemId, string $itemType, string $actionType, string $description): self
+    public static function createNew(int $userId, int $itemId, ?string $itemType, string $actionType, string $description): self
     {
         return self::create([
             'user_id' => $userId,
@@ -63,7 +63,7 @@ class Feed extends Model
         );
     }
 
-    public static function getFeedsByUserAndActionType(int $userId, int $actionType, int $limit = 20)
+    public static function getFeedsByUserAndActionType(int $userId, string $actionType, int $limit = 20)
     {
         return Cache::remember(
             "feed:user:{$userId}:action:{$actionType}:{$limit}",
@@ -78,11 +78,13 @@ class Feed extends Model
 
     public static function createStatusFeed(User $actor, string $message): Feed 
     {
+        $statusType = FeedType::status()?->type ?? 'status';
+
         $feed = self::createNew(
             userId: $actor->id,
             itemId: 0,
             itemType: null,
-            actionType: 'update',
+            actionType: $statusType,
             description: trim($message)
         );
 

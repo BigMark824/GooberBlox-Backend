@@ -129,11 +129,13 @@ class Asset extends Model
     }
     public function getCreatorTypeAttribute(): ?string
     {
-        if (!$this->creatorAgent) return null;
+        if (! $this->creatorAgent) {
+            return null;
+        }
 
         return match($this->creatorAgent->agent_type) {
-            User::class => 'User',
-            Group::class => 'Group',
+            AgentType::User->value, User::class => 'User',
+            AgentType::Group->value, Group::class => 'Group',
             default => null,
         };
     }

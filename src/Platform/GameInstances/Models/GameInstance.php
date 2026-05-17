@@ -16,6 +16,7 @@ class GameInstance extends Model
 {
     use HasUuids, Cachable;
     protected $fillable = [ 
+        'id',
         'place_id',
         'fps',
         'port',

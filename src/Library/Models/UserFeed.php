@@ -27,9 +27,15 @@ class UserFeed extends Model
 
     public function scopeStatus($query)
     {
+        $statusType = FeedType::status()?->type;
+
+        if ($statusType === null) {
+            return $query->whereRaw('1 = 0');
+        }
+
         return $query->whereHas('feed', function($q)
-        {
-            $q->where('action_type', FeedType::status()->id);
+        use ($statusType) {
+            $q->where('action_type', $statusType);
         });
     }
 
