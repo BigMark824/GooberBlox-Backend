@@ -33,23 +33,13 @@ class CookieConstraintValidator {
             ->addMinutes((int)$minutes)
             ->addSeconds((int)$seconds);
 
-        $domain = null;
+        $domain = '';
         if ($domainSuffix !== '' && Str::endsWith($host, $domainSuffix)) {
-            $domain = '.' . ltrim($domainSuffix, '.');
+            $domain = $domainSuffix;
         }
 
         return $response->withCookie(
-            cookie(
-                $constrainedCookie,
-                '1',
-                now()->diffInMinutes($expiresAt),
-                '/',
-                $domain,
-                false,
-                true,
-                false,
-                config('session.same_site', 'lax')
-            )
+            cookie($constrainedCookie, null, now()->diffInMinutes($expiresAt), '/', $domain, true, true)
         );
     }
 }
