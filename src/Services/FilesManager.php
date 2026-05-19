@@ -52,9 +52,13 @@ class FilesManager
 
         try {
             if (!Storage::disk('s3')->exists($s3Path)) {
-                Storage::disk('s3')->put($s3Path, $data, [
+                $uploaded = Storage::disk('s3')->put($s3Path, $data, [
                     'ContentType' => $contentType ?: 'application/octet-stream',
                 ]);
+
+                if (! $uploaded) {
+                    throw new \RuntimeException("S3 upload returned false for {$hash}");
+                }
 
                 event(new \GooberBlox\Events\FileUploaded([
                     'hash' => $hash,
@@ -71,7 +75,11 @@ class FilesManager
         }
 
         $localPath = $this->getLocalPath($hash);
-        Storage::disk('local')->put($localPath, $data);
+        $uploaded = Storage::disk('local')->put($localPath, $data);
+
+        if (! $uploaded) {
+            throw new \RuntimeException("Local upload returned false for {$hash}");
+        }
 
         event(new \GooberBlox\Events\FileUploaded([
             'hash' => $hash,

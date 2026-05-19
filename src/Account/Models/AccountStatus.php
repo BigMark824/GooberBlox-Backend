@@ -4,8 +4,6 @@ namespace GooberBlox\Account\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use GooberBlox\Account\Enums\AccountStatusEnum;
-
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class AccountStatus extends Model
 {

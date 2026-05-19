@@ -3,7 +3,7 @@
 namespace GooberBlox\Platform\Membership\Models;
 
 use GooberBlox\Account\Models\AccountStatus;
-use GooberBlox\Membership\Enums\AccountStatusEnum;
+use GooberBlox\Platform\Membership\Enums\AccountStatusEnum;
 use GooberBlox\Platform\AssetPermissions\AssetPermissionsVerifier;
 use GooberBlox\Platform\Assets\Place;
 use GooberBlox\Platform\Games\UserExtension;

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 use GooberBlox\Account\Models\AccountStatus;
 use GooberBlox\Platform\Membership\Models\User;
@@ -65,6 +66,13 @@ class Account extends Authenticatable
     public function accountStatus(): BelongsTo
     {
         return $this->belongsTo(AccountStatus::class, 'account_status_id'); 
+    }
+    /**
+     * Returns the numeric account status value from the linked status row.
+     */
+    protected function status(): Attribute
+    {
+        return Attribute::get(fn (): ?int => $this->accountStatus?->value ?? $this->account_status_id);
     }
     /**
      * Returns the accounts rolesets

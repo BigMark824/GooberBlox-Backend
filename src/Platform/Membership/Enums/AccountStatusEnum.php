@@ -1,6 +1,6 @@
 <?php
 
-namespace GooberBlox\Membership\Enums;
+namespace GooberBlox\Platform\Membership\Enums;
 
 enum AccountStatusEnum
 {
